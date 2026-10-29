@@ -44,7 +44,7 @@ Règles :
   propose plutôt de contacter un conseiller ou de remplir le formulaire de contact.
 `;
 
-const MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+const MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
 
 export default async function handler(req, res) {
     // Seules les requêtes POST sont acceptées
@@ -84,7 +84,7 @@ export default async function handler(req, res) {
                 body: JSON.stringify({
                     systemInstruction: { parts: [{ text: CONTEXTE_ENTREPRISE }] },
                     contents,
-                    generationConfig: { temperature: 0.6, maxOutputTokens: 400 }
+                    generationConfig: { temperature: 0.6, maxOutputTokens: 1024 }
                 })
             }
         );
@@ -96,7 +96,11 @@ export default async function handler(req, res) {
             return res.status(502).json({ error: "Le service IA est indisponible" });
         }
 
-        const reply = data.candidates?.[0]?.content?.parts?.map((p) => p.text).join("")
+        // On garde uniquement le texte de la réponse (pas les « pensées » du modèle)
+        const reply = data.candidates?.[0]?.content?.parts
+            ?.filter((p) => p.text && !p.thought)
+            .map((p) => p.text)
+            .join("")
             || "Je n'ai pas bien compris, pouvez-vous reformuler ?";
 
         return res.status(200).json({ reply });
