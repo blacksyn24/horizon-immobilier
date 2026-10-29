@@ -1,0 +1,7 @@
+{
+  "name": "horizon-immobilier",
+  "version": "1.0.0",
+  "description": "Site vitrine de l'agence immobilière fictive Horizon (projet hackathon XHTML & CSS)",
+  "type": "module",
+  "private": true
+}
