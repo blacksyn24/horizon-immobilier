@@ -270,7 +270,7 @@ function initChatbot() {
             history.push({ role: "user", text }, { role: "model", text: data.reply });
         } catch (error) {
             typing.remove();
-            addMessage("Désolé, je rencontre un petit souci technique. Vous pouvez nous joindre au 01 23 45 67 89.", "bot");
+            addMessage("Désolé, je rencontre un petit souci technique. Vous pouvez nous joindre au +229 01 00 11 22 33.", "bot");
             console.error("Chatbot :", error);
         } finally {
             input.disabled = false;
