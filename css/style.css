@@ -254,11 +254,11 @@ a {
 }
 
 .banner-about {
-    background-image: linear-gradient(rgba(58, 36, 12, 0.75), rgba(58, 36, 12, 0.75)), url("../img/hero2.jpg");
+    background-image: linear-gradient(rgba(58, 36, 12, 0.75), rgba(58, 36, 12, 0.75)), url("../img/cotonou-rue.jpg");
 }
 
 .banner-services {
-    background-image: linear-gradient(rgba(58, 36, 12, 0.75), rgba(58, 36, 12, 0.75)), url("../img/bien6.jpg");
+    background-image: linear-gradient(rgba(58, 36, 12, 0.75), rgba(58, 36, 12, 0.75)), url("../img/ouidah.jpg");
 }
 
 .banner-biens {
@@ -266,7 +266,7 @@ a {
 }
 
 .banner-contact {
-    background-image: linear-gradient(rgba(58, 36, 12, 0.75), rgba(58, 36, 12, 0.75)), url("../img/hero3.jpg");
+    background-image: linear-gradient(rgba(58, 36, 12, 0.75), rgba(58, 36, 12, 0.75)), url("../img/cotonou.jpg");
 }
 
 /* ========== 6. SECTIONS COMMUNES ========== */
@@ -491,6 +491,89 @@ a {
 
 .property-item.hide {
     display: none;
+}
+
+/* Bouton « Voir le détail » : toute la carte devient cliquable (stretched-link) */
+.btn-details {
+    background: none;
+    border: none;
+    padding: 1rem 0 0;
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.btn-details i {
+    display: inline-block;
+    transition: var(--transition);
+}
+
+.property-card:hover .btn-details i {
+    transform: translateX(6px);
+}
+
+.btn-details:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+}
+
+/* --- Fenêtre de détail d'un bien --- */
+#bienModal .modal-content {
+    border: none;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+#bienModal .modal-header {
+    background-color: var(--cream);
+    border-bottom: none;
+}
+
+#bienModal .modal-title {
+    font-size: 1.6rem;
+}
+
+.bien-gallery {
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.bien-gallery img {
+    height: 380px;
+    object-fit: cover;
+}
+
+.bien-subtitle {
+    font-size: 1.15rem;
+    margin-top: 1.2rem;
+}
+
+.bien-fiche {
+    background-color: var(--cream);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+}
+
+.bien-fiche .bien-subtitle {
+    margin-top: 0;
+}
+
+.bien-fiche dt {
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: #8a7a66;
+}
+
+.bien-fiche dd {
+    font-weight: 600;
+    color: var(--brown);
+    border-bottom: 1px solid rgba(88, 55, 20, 0.12);
+    padding-bottom: 0.5rem;
+}
+
+.bien-fiche dd:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
 }
 
 /* --- Cartes de services --- */
@@ -1049,6 +1132,10 @@ a {
 
     .stat-number {
         font-size: 2.1rem;
+    }
+
+    .bien-gallery img {
+        height: 240px;
     }
 
     /* La fenêtre de chat prend toute la largeur */

@@ -9,6 +9,9 @@
    6. Validation du formulaire de contact
    7. Fermeture du menu mobile après un clic
    8. Chatbot « Hugo », l'assistant d'Horizon
+   9. Données des biens immobiliers
+   10. Fenêtre de détail d'un bien
+   11. Formulaire pré-rempli depuis une fiche de bien
    ========================================================== */
 
 /* ========== 1. ACTIVATION DU MODE JAVASCRIPT ========== */
@@ -23,6 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initContactForm();
     initMobileMenu();
     initChatbot();
+    initBienDetails();
+    initVisitRequest();
 });
 
 /* ========== 2. NAVBAR AU SCROLL + RETOUR EN HAUT ========== */
@@ -277,4 +282,221 @@ function initChatbot() {
             input.focus();
         }
     });
+}
+
+/* ========== 9. DONNÉES DES BIENS IMMOBILIERS ========== */
+// Chaque bien est identifié par la valeur de l'attribut data-bien de sa carte
+const BIENS = {
+    "villa-haie-vive": {
+        ref: "HZ-V001",
+        titre: "Villa contemporaine avec piscine",
+        statut: "À vendre",
+        prix: "350 000 000 FCFA",
+        lieu: "Haie Vive, Cotonou",
+        photos: [
+            { src: "img/bien3.jpg", alt: "Façade de la villa et sa piscine" },
+            { src: "img/det-salon2.jpg", alt: "Grand salon moderne et lumineux" },
+            { src: "img/det-cuisine1.jpg", alt: "Cuisine équipée" },
+            { src: "img/det-sdb.jpg", alt: "Salle de bain" }
+        ],
+        description: "Superbe villa d'architecte dans le quartier prisé de Haie Vive, à deux pas des restaurants et des ambassades. Grandes baies vitrées, piscine à débordement et finitions haut de gamme. Idéale pour une famille ou un investissement locatif de standing.",
+        caracteristiques: [
+            ["Type", "Villa duplex"],
+            ["Chambres", "5 (dont 3 avec salle d'eau)"],
+            ["Superficie du terrain", "600 m²"],
+            ["Surface habitable", "380 m²"],
+            ["Situation foncière", "Titre foncier"],
+            ["Disponibilité", "Immédiate"]
+        ],
+        equipements: ["Piscine", "Groupe électrogène", "Forage et château d'eau", "Climatisation dans toutes les chambres", "Garage 2 voitures", "Dépendance pour gardien"]
+    },
+    "appart-fidjrosse": {
+        ref: "HZ-L002",
+        titre: "Appartement 3 chambres",
+        statut: "À louer",
+        prix: "350 000 FCFA / mois",
+        lieu: "Fidjrossè, Cotonou",
+        photos: [
+            { src: "img/bien2.jpg", alt: "Séjour de l'appartement" },
+            { src: "img/det-cuisine2.jpg", alt: "Cuisine moderne" },
+            { src: "img/det-chambre1.jpg", alt: "Chambre principale" }
+        ],
+        description: "Appartement neuf au 2e étage d'une résidence calme et sécurisée, à 5 minutes de la plage de Fidjrossè. Séjour lumineux, cuisine équipée et balcon. Parfait pour une famille ou des professionnels.",
+        caracteristiques: [
+            ["Type", "Appartement"],
+            ["Chambres", "3 (dont 1 avec salle d'eau)"],
+            ["Surface", "140 m²"],
+            ["Étage", "2e sur 3"],
+            ["Conditions", "Caution + 3 mois d'avance"],
+            ["Disponibilité", "1er décembre"]
+        ],
+        equipements: ["Parking sécurisé", "Gardien 24 h/24", "Compteurs SBEE et SONEB individuels", "Climatisation", "Balcon"]
+    },
+    "villa-togbin": {
+        ref: "HZ-V003",
+        titre: "Villa basse 4 chambres",
+        statut: "À vendre",
+        prix: "85 000 000 FCFA",
+        lieu: "Togbin, Abomey-Calavi",
+        photos: [
+            { src: "img/bien5.jpg", alt: "Façade de la villa basse" },
+            { src: "img/det-salon1.jpg", alt: "Salon spacieux" },
+            { src: "img/det-cuisine1.jpg", alt: "Cuisine" }
+        ],
+        description: "Villa de plain-pied sur une parcelle clôturée, dans un quartier résidentiel en plein développement entre Cotonou et Ouidah. Construction récente et solide, grande cour et espace pour agrandir. Documents fonciers vérifiés par notre équipe.",
+        caracteristiques: [
+            ["Type", "Villa basse (plain-pied)"],
+            ["Chambres", "4"],
+            ["Superficie du terrain", "400 m²"],
+            ["Surface habitable", "180 m²"],
+            ["Situation foncière", "Titre foncier"],
+            ["Accès", "À 800 m de la route des pêches"]
+        ],
+        equipements: ["Parcelle clôturée", "Portail automatique", "Forage", "Cour pavée", "Dépendance"]
+    },
+    "duplex-fidjrosse-plage": {
+        ref: "HZ-L004",
+        titre: "Villa duplex meublée vue mer",
+        statut: "À louer",
+        prix: "1 200 000 FCFA / mois",
+        lieu: "Fidjrossè Plage, Cotonou",
+        photos: [
+            { src: "img/bien1.jpg", alt: "Villa duplex et sa piscine" },
+            { src: "img/det-piscine.jpg", alt: "Terrasse et piscine" },
+            { src: "img/det-chambre2.jpg", alt: "Chambre meublée" },
+            { src: "img/hero2.jpg", alt: "Jardin et espace extérieur" }
+        ],
+        description: "Villa entièrement meublée et décorée, face à l'océan. Piscine, grande terrasse et jardin tropical. Idéale pour une famille expatriée, un diplomate ou une location de standing.",
+        caracteristiques: [
+            ["Type", "Villa duplex meublée"],
+            ["Chambres", "6"],
+            ["Superficie du terrain", "500 m²"],
+            ["Ameublement", "Entièrement meublée"],
+            ["Conditions", "Caution + 3 mois d'avance"],
+            ["Disponibilité", "Immédiate"]
+        ],
+        equipements: ["Piscine", "Vue mer", "Groupe électrogène", "Internet fibre", "Climatisation", "Gardien et jardinier"]
+    },
+    "parcelle-pahou": {
+        ref: "HZ-T005",
+        titre: "Parcelle de 500 m²",
+        statut: "À vendre",
+        prix: "15 000 000 FCFA",
+        lieu: "Pahou, Ouidah",
+        photos: [
+            { src: "img/terrain.jpg", alt: "La parcelle au coucher du soleil" },
+            { src: "img/ouidah.jpg", alt: "Vue aérienne de la zone de Ouidah" }
+        ],
+        description: "Parcelle plate et sèche, en bordure de goudron, dans une zone en forte croissance entre Cotonou et Ouidah. Idéale pour construire une maison familiale ou réaliser un investissement. Le titre foncier a été vérifié auprès de l'ANDF.",
+        caracteristiques: [
+            ["Type", "Terrain constructible"],
+            ["Superficie", "500 m²"],
+            ["Situation foncière", "Titre foncier"],
+            ["Accès", "Bord goudron"],
+            ["Viabilisation", "Électricité à proximité"],
+            ["Prix au m²", "30 000 FCFA"]
+        ],
+        equipements: ["Terrain plat et non inondable", "Bornage effectué", "Quartier calme", "À 15 min de Ouidah centre"]
+    },
+    "studio-cadjehoun": {
+        ref: "HZ-L006",
+        titre: "Studio meublé",
+        statut: "À louer",
+        prix: "150 000 FCFA / mois",
+        lieu: "Cadjèhoun, Cotonou",
+        photos: [
+            { src: "img/hero3.jpg", alt: "Pièce de vie du studio" },
+            { src: "img/det-salon3.jpg", alt: "Coin salon" },
+            { src: "img/det-sdb.jpg", alt: "Salle d'eau" }
+        ],
+        description: "Studio moderne et entièrement meublé, proche de l'aéroport et des commerces de Cadjèhoun. Parfait pour un étudiant, un jeune actif ou un séjour professionnel.",
+        caracteristiques: [
+            ["Type", "Studio meublé"],
+            ["Chambres", "1"],
+            ["Surface", "35 m²"],
+            ["Ameublement", "Entièrement meublé"],
+            ["Conditions", "Caution + 2 mois d'avance"],
+            ["Disponibilité", "Immédiate"]
+        ],
+        equipements: ["Climatisation", "Internet Wi-Fi", "Cuisine équipée", "Eau chaude", "Gardien"]
+    }
+};
+
+/* ========== 10. FENÊTRE DE DÉTAIL D'UN BIEN ========== */
+function initBienDetails() {
+    const modalEl = document.getElementById("bienModal");
+    if (!modalEl) return;
+
+    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+    const el = (id) => document.getElementById(id);
+
+    // Crée un élément HTML avec du texte (textContent : pas d'injection possible)
+    const create = (tag, text, className) => {
+        const node = document.createElement(tag);
+        if (text) node.textContent = text;
+        if (className) node.className = className;
+        return node;
+    };
+
+    const ouvrir = (id) => {
+        const bien = BIENS[id];
+        if (!bien) return;
+
+        el("bienModalRef").textContent = `${bien.statut} · Réf. ${bien.ref}`;
+        el("bienModalTitle").textContent = bien.titre;
+        el("bienPrix").textContent = bien.prix;
+        el("bienLieu").textContent = bien.lieu;
+        el("bienDescription").textContent = bien.description;
+
+        // Galerie : une diapositive par photo
+        const photos = el("bienPhotos");
+        photos.replaceChildren(...bien.photos.map((photo, i) => {
+            const slide = create("div", "", i === 0 ? "carousel-item active" : "carousel-item");
+            const img = create("img", "", "d-block w-100");
+            img.src = photo.src;
+            img.alt = photo.alt;
+            slide.appendChild(img);
+            return slide;
+        }));
+        bootstrap.Carousel.getOrCreateInstance(el("bienCarousel")).to(0);
+
+        // Caractéristiques sous forme de liste de définitions
+        el("bienCaracteristiques").replaceChildren(...bien.caracteristiques.flatMap(([label, valeur]) => [
+            create("dt", label),
+            create("dd", valeur)
+        ]));
+
+        // Équipements avec une icône de validation
+        el("bienEquipements").replaceChildren(...bien.equipements.map((equipement) => {
+            const li = create("li");
+            li.appendChild(create("i", "", "bi bi-check-circle-fill"));
+            li.append(" " + equipement);
+            return li;
+        }));
+
+        // Le bouton « Demander une visite » transmet la référence à la page contact
+        el("bienVisite").href = `contact.html?bien=${encodeURIComponent(id)}`;
+
+        modal.show();
+    };
+
+    document.querySelectorAll(".btn-details").forEach((button) => {
+        button.addEventListener("click", () => ouvrir(button.dataset.bien));
+    });
+}
+
+/* ========== 11. FORMULAIRE PRÉ-REMPLI DEPUIS UNE FICHE ========== */
+function initVisitRequest() {
+    const form = document.getElementById("contactForm");
+    if (!form) return;
+
+    // Exemple d'adresse : contact.html?bien=villa-haie-vive
+    const id = new URLSearchParams(window.location.search).get("bien");
+    const bien = BIENS[id];
+    if (!bien) return; // référence inconnue : on ne pré-remplit rien
+
+    form.elements.sujet.value = bien.statut === "À louer" ? "location" : "achat";
+    form.elements.message.value =
+        `Bonjour, je souhaite organiser une visite du bien « ${bien.titre} » ` +
+        `(réf. ${bien.ref}, ${bien.lieu}). Merci de me recontacter.`;
 }

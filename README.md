@@ -6,7 +6,7 @@ Projet hackathon XHTML & CSS : site de présentation de l'agence immobilière fi
 - `index.html` : accueil (carrousel hero, chiffres clés, services, biens à la une, avis)
 - `a-propos.html` : histoire, valeurs, équipe
 - `services.html` : services en cartes Bootstrap, méthode, FAQ
-- `biens.html` : biens à vendre / à louer avec filtre
+- `biens.html` : biens à vendre / à louer avec filtre et fiche détaillée (galerie, caractéristiques, demande de visite)
 - `contact.html` : formulaire validé en JS + coordonnées
 
 ## Technologies
@@ -21,4 +21,6 @@ Le navigateur appelle `/api/chat` ; c'est la fonction serveur qui contacte Gemin
 3. Ajouter `GEMINI_API_KEY` dans Settings > Environment Variables, puis redéployer
 
 ## Crédits images
-Photos libres de droits : [Unsplash](https://unsplash.com).
+Toutes les photos sont libres de droits :
+- Photos du Bénin : vue aérienne de Cotonou (Yanick Folly, [Unsplash](https://unsplash.com)), Ganvié et lac Nokoué (Iwaria, [Pexels](https://www.pexels.com)), rue de Cotonou (Vurzie Kim, Pexels), Ouidah vue du ciel (Adedoyin Aderomola, Pexels).
+- Biens, intérieurs et portraits de l'équipe : [Unsplash](https://unsplash.com).

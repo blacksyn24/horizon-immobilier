@@ -55,13 +55,13 @@
 
             <div class="carousel-inner">
                 <div class="carousel-item active">
+                    <img src="img/cotonou.jpg" class="d-block w-100" alt="Vue aérienne de Cotonou">
+                </div>
+                <div class="carousel-item">
                     <img src="img/hero1.jpg" class="d-block w-100" alt="Villa moderne avec piscine">
                 </div>
                 <div class="carousel-item">
-                    <img src="img/hero2.jpg" class="d-block w-100" alt="Maison avec jardin et piscine">
-                </div>
-                <div class="carousel-item">
-                    <img src="img/hero3.jpg" class="d-block w-100" alt="Salon lumineux d'un appartement">
+                    <img src="img/ganvie.jpg" class="d-block w-100" alt="Ganvié, la cité lacustre du lac Nokoué">
                 </div>
             </div>
 
@@ -183,6 +183,9 @@
                                     <li><i class="bi bi-arrows-fullscreen"></i> 600 m²</li>
                                     <li><i class="bi bi-water"></i> Piscine</li>
                                 </ul>
+                                <button type="button" class="btn-details stretched-link" data-bien="villa-haie-vive">
+                                    Voir le détail <i class="bi bi-arrow-right"></i>
+                                </button>
                             </div>
                         </article>
                     </div>
@@ -201,13 +204,16 @@
                                     <li><i class="bi bi-arrows-fullscreen"></i> 140 m²</li>
                                     <li><i class="bi bi-p-circle"></i> Parking</li>
                                 </ul>
+                                <button type="button" class="btn-details stretched-link" data-bien="appart-fidjrosse">
+                                    Voir le détail <i class="bi bi-arrow-right"></i>
+                                </button>
                             </div>
                         </article>
                     </div>
                     <div class="col-md-6 col-lg-4 reveal">
                         <article class="card property-card h-100">
                             <div class="property-img">
-                                <img src="img/bien5.jpg" class="card-img-top" alt="Villa basse avec jardin">
+                                <img src="img/bien5.jpg" class="card-img-top" alt="Villa basse en brique au toit de tôle">
                                 <span class="badge-type">À vendre</span>
                             </div>
                             <div class="card-body">
@@ -219,6 +225,9 @@
                                     <li><i class="bi bi-arrows-fullscreen"></i> 400 m²</li>
                                     <li><i class="bi bi-file-earmark-check"></i> Titre foncier</li>
                                 </ul>
+                                <button type="button" class="btn-details stretched-link" data-bien="villa-togbin">
+                                    Voir le détail <i class="bi bi-arrow-right"></i>
+                                </button>
                             </div>
                         </article>
                     </div>
@@ -269,6 +278,57 @@
             </div>
         </section>
     </main>
+
+    <!-- ===================== FENÊTRE DE DÉTAIL D'UN BIEN =====================
+         Remplie par js/script.js selon le bien cliqué -->
+    <div class="modal fade" id="bienModal" tabindex="-1" role="dialog" aria-labelledby="bienModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <p class="overline mb-0" id="bienModalRef">Référence</p>
+                        <h2 class="modal-title" id="bienModalTitle">Détail du bien</h2>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Galerie photos du bien -->
+                    <div id="bienCarousel" class="carousel slide bien-gallery mb-4">
+                        <div class="carousel-inner" id="bienPhotos"></div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#bienCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Photo précédente</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#bienCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Photo suivante</span>
+                        </button>
+                    </div>
+
+                    <div class="row g-4">
+                        <div class="col-md-7">
+                            <p class="price" id="bienPrix"></p>
+                            <p class="location" id="bienLieu"></p>
+                            <h3 class="bien-subtitle">Description</h3>
+                            <p id="bienDescription"></p>
+                            <h3 class="bien-subtitle">Équipements</h3>
+                            <ul class="check-list" id="bienEquipements"></ul>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="bien-fiche">
+                                <h3 class="bien-subtitle">Caractéristiques</h3>
+                                <dl id="bienCaracteristiques"></dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="tel:+2290100112233" class="btn btn-brown"><i class="bi bi-telephone"></i> Appeler</a>
+                    <a href="contact.html" class="btn btn-main" id="bienVisite"><i class="bi bi-calendar-check"></i> Demander une visite</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ===================== PIED DE PAGE ===================== -->
     <footer class="site-footer">
