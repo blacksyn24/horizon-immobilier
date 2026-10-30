@@ -1,110 +1,141 @@
 /* ==========================================================
    HORIZON IMMOBILIER — Feuille de style personnalisée
+   Concept : « la ligne d'horizon »
+   - un rail de navigation vertical à gauche (au lieu d'une barre en haut) ;
+   - des fenêtres en arche, inspirées des façades des villas ;
+   - une ligne dorée qui traverse les pages, comme un horizon.
    Sommaire :
    1. Variables et base
    2. Boutons
-   3. Navigation
-   4. Hero / carrousel
-   5. Bannières de pages
+   3. Rail de navigation
+   4. Hero / carrousel en arche
+   5. En-têtes des pages internes
    6. Sections communes
-   7. Cartes (services, biens, équipe)
-   8. Pages spécifiques (contact, FAQ, étapes)
-   9. Pied de page
-   10. Animations au scroll
-   11. Chatbot
-   12. Media queries (responsive)
+   7. Page d'accueil (chiffres, index des services, mosaïque, avis)
+   8. Cartes de biens et catalogue
+   9. Fenêtre de détail d'un bien
+   10. Page Services (cartes, méthode, FAQ)
+   11. Page À propos (récit, valeurs, équipe)
+   12. Page Contact
+   13. Pied de page
+   14. Animations au scroll
+   15. Chatbot
+   16. Media queries (responsive)
    ========================================================== */
 
 /* ========== 1. VARIABLES ET BASE ========== */
 :root {
     --brown: #583714;       /* brun chocolat : fonds sombres, titres */
+    --brown-dark: #2e1c09;  /* brun très sombre : rail et pied de page */
     --brown-light: #7a5328;
-    --gold: #a87a26;        /* or foncé : boutons, prix, icônes sur fond clair */
+    --gold: #a87a26;        /* or foncé : filets, icônes sur fond clair */
+    --gold-ink: #7f5c1b;    /* or foncé lisible pour les petits textes */
     --gold-light: #ffeb97;  /* or pâle : accents sur fonds sombres */
-    --cream: #fff9e8;       /* crème : fond des sections alternées */
+    --cream: #fff9e8;       /* crème : fond général */
+    --line: rgba(88, 55, 20, 0.18); /* filets fins */
     --gradient-gold: linear-gradient(135deg, #ffeb97 0%, #d9b45a 100%);   /* dégradé or */
     --gradient-brown: linear-gradient(135deg, #3a240c 0%, #583714 55%, #8a6326 100%); /* dégradé brun → or */
     --text: #4a3b2c;
-    --radius: 14px;
-    --shadow: 0 10px 30px rgba(58, 36, 12, 0.10);
+    --rail: 230px;          /* largeur du rail de navigation */
+    --serif: 'Fraunces', serif;
+    --sans: 'Manrope', sans-serif;
     --transition: all 0.3s ease;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--sans);
     color: var(--text);
+    background-color: var(--cream);
     line-height: 1.7;
+    padding-top: 68px;      /* hauteur de la barre mobile */
 }
 
 h1, h2, h3,
-.navbar-brand,
-.footer-brand {
-    font-family: 'Playfair Display', serif;
+.navbar-brand {
+    font-family: var(--serif);
     color: var(--brown);
+    font-weight: 600;
+    letter-spacing: -0.01em;
 }
 
 a {
     color: var(--brown-light);
 }
 
+/* Les conteneurs s'adaptent à la place laissée par le rail */
+main .container,
+.site-footer .container {
+    max-width: 1120px;
+}
+
 /* ========== 2. BOUTONS ========== */
 .btn-main {
     background: var(--gradient-gold);
     color: var(--brown);
-    border: 2px solid transparent;
-    border-radius: 50px;
+    border: 2px solid var(--brown);
+    border-radius: 0;
     padding-left: 1.8rem;
     padding-right: 1.8rem;
-    font-weight: 500;
+    font-weight: 600;
+    box-shadow: 5px 5px 0 var(--brown);
     transition: var(--transition);
 }
 
 .btn-main:hover,
 .btn-main:focus {
-    background: var(--brown);
-    border-color: var(--gold-light);
-    color: var(--gold-light);
-    transform: translateY(-3px);
+    background: var(--gradient-gold);
+    color: var(--brown);
+    border-color: var(--brown);
+    box-shadow: 0 0 0 var(--brown);
+    transform: translate(5px, 5px);
 }
 
 .btn-brown {
     background-color: var(--brown);
     color: #fff;
-    border-radius: 50px;
+    border: 2px solid var(--brown);
+    border-radius: 0;
     padding: 0.7rem 1.8rem;
+    font-weight: 600;
     transition: var(--transition);
 }
 
 .btn-brown:hover {
-    background-color: var(--gold);
-    color: #fff;
-    transform: translateY(-3px);
+    background-color: transparent;
+    color: var(--brown);
 }
 
-.btn-outline-light {
-    border-radius: 50px;
-    padding-left: 1.8rem;
-    padding-right: 1.8rem;
-}
-
-/* ========== 3. NAVIGATION ========== */
-#mainNav {
-    background-color: rgba(58, 36, 12, 0.35);
-    backdrop-filter: blur(6px);
-    padding: 1rem 0;
+/* Bouton fin avec un simple trait dessous */
+.btn-line {
+    color: var(--brown);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 0.2rem;
     transition: var(--transition);
 }
 
-/* Classe ajoutée par le JavaScript quand on fait défiler la page */
-#mainNav.scrolled {
-    background-color: var(--brown);
-    padding: 0.5rem 0;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+.btn-line:hover {
+    color: var(--gold-ink);
+    letter-spacing: 0.03em;
+}
+
+/* ========== 3. RAIL DE NAVIGATION ========== */
+/* Sur mobile et tablette : barre en haut avec le bouton hamburger.
+   À partir de 1200 px : rail vertical fixé à gauche (voir la section 16). */
+#mainNav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    background-color: var(--brown-dark);
+    padding: 0.7rem 0;
 }
 
 .navbar-brand {
     color: #fff !important;
-    font-size: 1.5rem;
+    font-size: 1.45rem;
     font-weight: 700;
 }
 
@@ -114,295 +145,471 @@ a {
 }
 
 .navbar-brand span {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 300;
-    font-size: 1rem;
-    margin-left: 4px;
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    display: block;
+    margin-top: -0.2rem;
 }
 
 .navbar-dark .nav-link {
-    color: rgba(255, 255, 255, 0.85);
-    margin: 0 0.4rem;
-    position: relative;
+    color: rgba(255, 255, 255, 0.78);
+    display: flex;
+    align-items: baseline;
+    gap: 0.8rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     transition: var(--transition);
 }
 
-/* Soulignement animé au survol */
-.navbar-dark .nav-link::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: 2px;
-    width: 0;
-    height: 2px;
-    background-color: var(--gold-light);
-    transition: var(--transition);
-    transform: translateX(-50%);
-}
-
-.navbar-dark .nav-link:hover::after,
-.navbar-dark .nav-link.active::after {
-    width: 60%;
+/* Numéro devant chaque lien */
+.nav-num {
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    color: var(--gold-light);
 }
 
 .navbar-dark .nav-link:hover,
 .navbar-dark .nav-link.active {
     color: #fff;
+    padding-left: 0.6rem;
+    border-bottom-color: var(--gold-light);
 }
 
 /* Lien « Contact » en forme de bouton */
 .navbar-dark .btn-nav {
+    justify-content: center;
+    margin-top: 1rem;
+    padding: 0.55rem 0;
     border: 2px solid var(--gold-light);
-    border-radius: 50px;
-    padding-left: 1.2rem !important;
-    padding-right: 1.2rem !important;
-}
-
-.navbar-dark .btn-nav::after {
-    display: none;
+    color: var(--gold-light);
+    font-weight: 600;
 }
 
 .navbar-dark .btn-nav:hover,
 .navbar-dark .btn-nav.active {
     background-color: var(--gold-light);
-    color: var(--brown);
+    border-color: var(--gold-light);
+    color: var(--brown-dark);
+    padding-left: 0;
 }
 
-/* ========== 4. HERO / CARROUSEL ========== */
+.navbar-toggler {
+    border-color: rgba(255, 235, 151, 0.5);
+    border-radius: 0;
+}
+
+/* Coordonnées de Cotonou en bas du rail (masquées sur mobile) */
+.rail-coords {
+    display: none;
+    margin: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+/* ========== 4. HERO / CARROUSEL EN ARCHE ========== */
 .hero {
     position: relative;
-    height: 100vh;
-    min-height: 560px;
+    padding: 3rem 0 0;
+    overflow: hidden;
 }
 
-.hero .carousel-inner,
-.hero .carousel-item {
-    height: 100%;
-}
-
-.hero .carousel-item img {
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Voile sombre pour rendre le texte lisible */
-.hero .carousel-item::after {
+/* La ligne d'horizon traverse le hero derrière l'arche */
+.hero::after {
     content: "";
     position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, rgba(58, 36, 12, 0.85) 0%, rgba(58, 36, 12, 0.35) 70%);
+    left: 0;
+    right: 0;
+    bottom: 5.5rem;
+    height: 2px;
+    background-color: var(--gold);
 }
 
-.hero-content {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
+.hero-text {
+    position: relative;
     z-index: 2;
-    color: #fff;
-    pointer-events: none;   /* laisse passer les clics vers les flèches du carrousel */
-}
-
-.hero-content a {
-    pointer-events: auto;
-}
-
-.hero-content h1 {
-    color: #fff;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    margin-bottom: 0.5rem;
+    padding-bottom: 7rem;
 }
 
 .hero-tag {
     text-transform: uppercase;
-    letter-spacing: 3px;
-    color: var(--gold-light);
-    font-size: 0.85rem;
-    font-weight: 500;
+    letter-spacing: 0.2em;
+    color: var(--gold-ink);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.hero h1 {
+    font-size: clamp(3.6rem, 10.5vw, 8.5rem);
+    line-height: 0.92;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+}
+
+.hero h1 span {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.2em;
+    font-weight: 400;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold-ink);
+    margin-top: 0.8em;
 }
 
 .hero-slogan {
-    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
-    font-weight: 300;
-    margin-bottom: 2rem;
-    max-width: 520px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+    margin: 1.4rem 0 2rem;
+    max-width: 480px;
 }
 
-.hero .carousel-indicators,
-.hero .carousel-control-prev,
-.hero .carousel-control-next {
-    z-index: 3;
+/* Fenêtre en arche contenant le carrousel */
+.arch-carousel {
+    position: relative;
+    z-index: 2;
+    height: min(78vh, 680px);
+    min-height: 420px;
+    border-radius: 999px 999px 0 0;
+    overflow: hidden;
+    border: 2px solid var(--brown);
+    outline: 2px solid var(--gold);
+    outline-offset: 8px;
+    margin-top: 10px;
 }
 
-/* ========== 5. BANNIÈRES DES PAGES INTERNES ========== */
-.page-banner {
-    padding: 11rem 0 5rem;
-    color: #fff;
-    text-align: center;
-    background-size: cover;
-    background-position: center;
+.arch-carousel .carousel-inner,
+.arch-carousel .carousel-item {
+    height: 100%;
 }
 
-.page-banner h1 {
-    color: #fff;
-    font-size: clamp(2.2rem, 5vw, 3.5rem);
+.arch-carousel .carousel-item img {
+    height: 100%;
+    object-fit: cover;
 }
 
-.page-banner p {
-    font-size: 1.15rem;
-    font-weight: 300;
+.arch-carousel .carousel-control-prev,
+.arch-carousel .carousel-control-next {
+    top: auto;
+    bottom: 1.2rem;
+    width: 44px;
+    height: 44px;
+    background-color: var(--brown);
+    opacity: 1;
+    transition: var(--transition);
 }
 
-.banner-about {
-    background-image: linear-gradient(rgba(58, 36, 12, 0.75), rgba(58, 36, 12, 0.75)), url("../img/cotonou-rue.jpg");
+.arch-carousel .carousel-control-prev {
+    left: calc(50% - 50px);
 }
 
-.banner-services {
-    background-image: linear-gradient(rgba(58, 36, 12, 0.75), rgba(58, 36, 12, 0.75)), url("../img/bj-calavi.jpg");
+.arch-carousel .carousel-control-next {
+    right: calc(50% - 50px);
 }
 
-.banner-biens {
-    background-image: linear-gradient(rgba(58, 36, 12, 0.75), rgba(58, 36, 12, 0.75)), url("../img/hero1.jpg");
+.arch-carousel .carousel-control-prev:hover,
+.arch-carousel .carousel-control-next:hover {
+    background-color: var(--gold);
 }
 
-.banner-contact {
-    background-image: linear-gradient(rgba(58, 36, 12, 0.75), rgba(58, 36, 12, 0.75)), url("../img/cotonou.jpg");
+/* ========== 5. EN-TÊTES DES PAGES INTERNES ========== */
+.page-head {
+    position: relative;
+    padding: 3.5rem 0 0;
+    overflow: hidden;
+}
+
+.page-head::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 3rem;
+    height: 2px;
+    background-color: var(--gold);
+}
+
+.page-head h1 {
+    font-size: clamp(3rem, 8vw, 6.2rem);
+    line-height: 1;
+    font-weight: 700;
+}
+
+.page-head .lead-text {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.3rem;
+    max-width: 460px;
+}
+
+.page-head-text {
+    padding-bottom: 5rem;
+}
+
+/* Petite arche d'illustration à droite du titre */
+.arch-img {
+    position: relative;
+    z-index: 2;
+    display: block;
+    width: 100%;
+    max-width: 340px;
+    height: 380px;
+    margin-left: auto;
+    object-fit: cover;
+    border-radius: 999px 999px 0 0;
+    border: 2px solid var(--brown);
 }
 
 /* ========== 6. SECTIONS COMMUNES ========== */
 .section {
-    padding: 5.5rem 0;
+    padding: 6rem 0;
 }
 
-.bg-soft {
-    background-color: var(--cream);
+.bg-white {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
 }
 
 .section-title {
-    text-align: center;
+    margin-bottom: 3.5rem;
     max-width: 640px;
-    margin: 0 auto 3.5rem;
 }
 
-.section-title h2 {
-    font-size: clamp(1.8rem, 4vw, 2.6rem);
+.section-title h2,
+.sticky-title h2 {
+    font-size: clamp(2rem, 4.4vw, 3.2rem);
+    line-height: 1.1;
+}
+
+/* Titre qui reste visible pendant le défilement de la colonne voisine */
+.sticky-title {
+    position: sticky;
+    top: 110px;
 }
 
 .overline {
     text-transform: uppercase;
-    letter-spacing: 3px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--gold);
-    margin-bottom: 0.4rem;
+    letter-spacing: 0.2em;
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--gold-ink);
+    margin-bottom: 0.6rem;
 }
 
-/* Chiffres clés */
+.check-list {
+    list-style: none;
+    padding: 0;
+}
+
+.check-list li {
+    margin-bottom: 0.5rem;
+}
+
+.check-list i {
+    color: var(--gold);
+    margin-right: 0.5rem;
+}
+
+/* Bandeau d'appel à l'action : grand texte sur fond or */
+.cta {
+    background: var(--gradient-gold);
+    border-top: 2px solid var(--brown);
+    padding: 5rem 0;
+}
+
+.cta h2 {
+    font-size: clamp(2.2rem, 5.4vw, 4rem);
+    line-height: 1.05;
+}
+
+.cta p {
+    margin-bottom: 0;
+    color: var(--brown);
+    font-weight: 500;
+}
+
+.cta .btn-brown:hover {
+    color: var(--brown);
+}
+
+/* ========== 7. PAGE D'ACCUEIL ========== */
+/* Chiffres clés présentés comme un registre */
 .stats {
-    background: var(--gradient-brown);
-    padding: 3rem 0;
-    color: #fff;
+    background-color: var(--brown);
+}
+
+.stats .row > div {
+    padding-top: 2.2rem;
+    padding-bottom: 2.2rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.stats .row > div:last-child {
+    border-right: none;
 }
 
 .stat-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.8rem;
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
     font-weight: 700;
+    line-height: 1.1;
     color: var(--gold-light);
-    margin-bottom: 0;
+    margin-bottom: 0.2rem;
 }
 
 .stat-label {
     margin-bottom: 0;
-    font-weight: 300;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
 }
 
-/* Boîtes d'avantages / valeurs */
-.feature-box {
-    background-color: #fff;
-    padding: 2.2rem 1.6rem;
-    border-radius: var(--radius);
-    text-align: center;
-    height: 100%;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    border-bottom: 4px solid transparent;
-}
-
-.feature-box i {
-    font-size: 2.6rem;
-    color: var(--gold);
-    display: inline-block;
-    margin-bottom: 1rem;
-    transition: var(--transition);
-}
-
-.feature-box h3 {
-    font-size: 1.35rem;
-}
-
-.feature-box:hover {
-    transform: translateY(-10px);
-    border-bottom-color: var(--gold);
-}
-
-.feature-box:hover i {
-    transform: scale(1.2) rotate(-8deg);
-}
-
-/* Témoignages */
-.testimonial {
-    background-color: var(--cream);
-    border-left: 4px solid var(--gold);
-    padding: 2rem;
-    border-radius: var(--radius);
-    height: 100%;
+/* Index des services : une ligne par service */
+.service-index {
+    list-style: none;
     margin: 0;
-    font-style: italic;
+    padding: 0;
+    border-top: 2px solid var(--brown);
+}
+
+.service-index li {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr 2rem;
+    gap: 1rem;
+    align-items: start;
+    padding: 1.6rem 0.8rem;
+    border-bottom: 1px solid var(--line);
     transition: var(--transition);
 }
 
-.testimonial:hover {
-    box-shadow: var(--shadow);
+.service-index .index-num {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    color: var(--gold-ink);
+    transition: var(--transition);
+}
+
+.service-index h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.2rem;
+    transition: var(--transition);
+}
+
+.service-index p {
+    margin-bottom: 0;
+}
+
+.service-index i {
+    font-size: 1.4rem;
+    color: var(--gold);
+    transition: var(--transition);
+}
+
+/* Toute la ligne passe en brun au survol */
+.service-index li:hover {
+    background-color: var(--brown);
+    color: #fff;
+}
+
+.service-index li:hover h3,
+.service-index li:hover .index-num,
+.service-index li:hover i {
+    color: var(--gold-light);
+}
+
+.service-index li:hover i {
+    transform: rotate(-12deg) scale(1.15);
+}
+
+/* Mosaïque des biens à la une : une grande carte et deux petites */
+.mosaic {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 1.5rem;
+}
+
+.mosaic .mosaic-big {
+    grid-row: span 2;
+}
+
+/* La photo de la grande carte remplit toute la hauteur disponible */
+.mosaic .mosaic-big .property-img {
+    flex: 1;
+    min-height: 420px;
+}
+
+.mosaic .mosaic-big .property-img img {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+}
+
+/* Le texte garde sa hauteur : c'est la photo qui occupe le reste */
+.mosaic .mosaic-big .card-body {
+    flex: 0 0 auto;
+}
+
+.mosaic .card-title {
+    font-size: 1.25rem;
+}
+
+.mosaic .mosaic-big .card-title {
+    font-size: 1.8rem;
+}
+
+/* Avis clients : colonnes décalées sur fond sombre */
+.reviews {
+    background: var(--gradient-brown);
+}
+
+.reviews .section-title h2,
+.reviews .overline {
+    color: var(--gold-light);
+}
+
+.testimonial {
+    margin: 0;
+    padding-top: 1.2rem;
+    border-top: 2px solid var(--gold-light);
+    color: #fff;
+    transition: var(--transition);
+}
+
+.testimonial p {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.15rem;
+    line-height: 1.5;
 }
 
 .testimonial footer {
-    font-style: normal;
+    color: var(--gold-light);
+    font-size: 0.85rem;
     font-weight: 600;
-    color: var(--brown);
-    margin-top: 1rem;
 }
 
-/* Bandeau d'appel à l'action */
-.cta {
-    background: var(--gradient-brown);
-    padding: 5rem 0;
-    color: #fff;
+.testimonial:hover {
+    transform: translateY(-6px);
 }
 
-.cta h2 {
-    color: #fff;
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
-}
-
-.cta p {
-    font-weight: 300;
-    margin-bottom: 2rem;
-}
-
-/* ========== 7. CARTES ========== */
-/* --- Cartes de biens --- */
+/* ========== 8. CARTES DE BIENS ET CATALOGUE ========== */
 .property-card {
-    border: none;
-    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    border-radius: 0;
+    background-color: #fff;
     overflow: hidden;
-    box-shadow: var(--shadow);
+    height: 100%;
     transition: var(--transition);
 }
 
 .property-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 18px 40px rgba(58, 36, 12, 0.18);
+    border-color: var(--brown);
+    box-shadow: 8px 8px 0 var(--gold-light);
+    transform: translate(-4px, -4px);
 }
 
 .property-img {
@@ -411,26 +618,30 @@ a {
 }
 
 .property-img img {
-    height: 240px;
+    display: block;
+    width: 100%;
+    height: 210px;
     object-fit: cover;
+    border-radius: 0;
     transition: transform 0.6s ease;
 }
 
 /* Zoom de la photo au survol */
 .property-card:hover .property-img img {
-    transform: scale(1.1);
+    transform: scale(1.06);
 }
 
 .badge-type {
     position: absolute;
-    top: 15px;
-    left: 15px;
+    top: 0;
+    left: 0;
     background-color: var(--gold-light);
     color: var(--brown);
     padding: 0.3rem 0.9rem;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 500;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 }
 
 .badge-rent {
@@ -439,28 +650,30 @@ a {
 }
 
 .property-card .card-title {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
 }
 
 .price {
-    color: var(--gold);
+    font-family: var(--serif);
+    color: var(--gold-ink);
     font-weight: 600;
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     margin-bottom: 0.2rem;
 }
 
 .location {
-    color: #7b8290;
+    color: #75634d;
     font-size: 0.9rem;
 }
 
 .property-meta {
     list-style: none;
-    padding: 1rem 0 0;
+    padding: 0.8rem 0 0;
     margin: 0;
     display: flex;
-    justify-content: space-between;
-    border-top: 1px solid #eee;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.2rem;
+    border-top: 1px solid var(--line);
     font-size: 0.85rem;
 }
 
@@ -468,38 +681,13 @@ a {
     color: var(--gold);
 }
 
-/* Boutons de filtre (page « Nos biens ») */
-.btn-filter {
-    border: 2px solid var(--brown);
-    color: var(--brown);
-    border-radius: 50px;
-    margin: 0.25rem;
-    padding: 0.5rem 1.5rem;
-    transition: var(--transition);
-}
-
-.btn-filter:hover,
-.btn-filter.active {
-    background-color: var(--brown);
-    color: #fff;
-}
-
-/* Masquage animé lors du filtrage */
-.property-item {
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.property-item.hide {
-    display: none;
-}
-
 /* Bouton « Voir le détail » : toute la carte devient cliquable (stretched-link) */
 .btn-details {
     background: none;
     border: none;
-    padding: 1rem 0 0;
-    color: var(--gold);
-    font-weight: 600;
+    padding: 0.9rem 0 0;
+    color: var(--brown);
+    font-weight: 700;
     font-size: 0.9rem;
 }
 
@@ -517,25 +705,78 @@ a {
     outline-offset: 4px;
 }
 
-/* --- Fenêtre de détail d'un bien --- */
-#bienModal .modal-content {
+/* Onglets de filtre (page « Nos biens ») */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.8rem;
+    border-bottom: 2px solid var(--brown);
+    margin-bottom: 3rem;
+}
+
+.btn-filter {
     border: none;
-    border-radius: var(--radius);
+    border-bottom: 4px solid transparent;
+    border-radius: 0;
+    margin-bottom: -2px;
+    padding: 0.4rem 0 0.7rem;
+    color: var(--brown);
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    transition: var(--transition);
+}
+
+.btn-filter:hover,
+.btn-filter.active {
+    border-bottom-color: var(--gold);
+    color: var(--brown);
+}
+
+/* Masquage lors du filtrage */
+.property-item.hide {
+    display: none;
+}
+
+/* Catalogue : grandes fiches horizontales, photo à gauche ou à droite */
+.catalogue-photo {
+    height: 100%;
+}
+
+.catalogue-photo img {
+    height: 100%;
+    min-height: 300px;
+}
+
+.catalogue-body {
+    padding: 2.2rem;
+}
+
+.catalogue-body .price {
+    font-size: 1.7rem;
+}
+
+.catalogue-body .card-title {
+    font-size: 1.7rem;
+}
+
+/* ========== 9. FENÊTRE DE DÉTAIL D'UN BIEN ========== */
+#bienModal .modal-content {
+    border: 2px solid var(--brown);
+    border-radius: 0;
     overflow: hidden;
+    background-color: var(--cream);
 }
 
 #bienModal .modal-header {
-    background-color: var(--cream);
-    border-bottom: none;
+    border-bottom: 1px solid var(--line);
+}
+
+#bienModal .modal-footer {
+    border-top: 1px solid var(--line);
 }
 
 #bienModal .modal-title {
     font-size: 1.6rem;
-}
-
-.bien-gallery {
-    border-radius: var(--radius);
-    overflow: hidden;
 }
 
 .bien-gallery img {
@@ -549,8 +790,8 @@ a {
 }
 
 .bien-fiche {
-    background-color: var(--cream);
-    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    background-color: #fff;
     padding: 1.4rem;
 }
 
@@ -561,13 +802,13 @@ a {
 .bien-fiche dt {
     font-weight: 400;
     font-size: 0.8rem;
-    color: #8a7a66;
+    color: #75634d;
 }
 
 .bien-fiche dd {
     font-weight: 600;
     color: var(--brown);
-    border-bottom: 1px solid rgba(88, 55, 20, 0.12);
+    border-bottom: 1px solid var(--line);
     padding-bottom: 0.5rem;
 }
 
@@ -576,122 +817,148 @@ a {
     margin-bottom: 0;
 }
 
-/* --- Cartes de services --- */
+/* ========== 10. PAGE SERVICES ========== */
+/* Cartes Bootstrap décalées, avec un grand numéro en filigrane */
 .service-card {
-    border: none;
-    border-radius: var(--radius);
-    padding: 1.2rem;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
+    border: 1px solid var(--line);
+    border-radius: 0;
+    background-color: #fff;
     position: relative;
     overflow: hidden;
+    transition: var(--transition);
 }
 
-/* Bande dorée qui se dessine au survol */
-.service-card::before {
-    content: "";
+.service-card .card-body {
+    position: relative;
+    padding: 2.2rem;
+}
+
+.service-card .watermark {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 4px;
-    background-color: var(--gold);
-    transition: width 0.4s ease;
-}
-
-.service-card:hover::before {
-    width: 100%;
-}
-
-.service-card:hover {
-    transform: translateY(-8px);
+    top: 0.2rem;
+    right: 1.2rem;
+    font-family: var(--serif);
+    font-size: 5.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--cream);
+    transition: var(--transition);
 }
 
 .service-card .card-title {
-    font-size: 1.4rem;
+    position: relative;
+    font-size: 1.7rem;
+}
+
+.service-card .card-text {
+    position: relative;
 }
 
 .service-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background-color: var(--cream);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.2rem;
-    transition: var(--transition);
-}
-
-.service-icon i {
-    font-size: 1.8rem;
+    position: relative;
+    font-size: 2rem;
     color: var(--gold);
+    margin-bottom: 1rem;
     transition: var(--transition);
-}
-
-.service-card:hover .service-icon {
-    background-color: var(--gold);
-}
-
-.service-card:hover .service-icon i {
-    color: #fff;
 }
 
 .service-price {
-    font-weight: 600;
+    position: relative;
+    font-weight: 700;
     color: var(--brown);
     margin-bottom: 0;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--line);
 }
 
-/* --- Cartes équipe --- */
-.team-card {
-    text-align: center;
-    background-color: #fff;
-    border-radius: var(--radius);
-    padding: 2rem 1rem;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
+.service-card:hover {
+    border-color: var(--brown);
+    box-shadow: 8px 8px 0 var(--gold-light);
+    transform: translate(-4px, -4px);
 }
 
-/* Cercle avec les initiales du membre */
-.team-avatar {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    border: 4px solid var(--cream);
-    margin-bottom: 1rem;
-    background: var(--gradient-brown);
+.service-card:hover .watermark {
     color: var(--gold-light);
-    font-size: 2.6rem;
+}
+
+.service-card:hover .service-icon {
+    transform: translateY(-4px);
+}
+
+/* Méthode : les étapes montent comme un soleil à l'horizon */
+.steps {
+    position: relative;
+}
+
+.step {
+    border-left: 2px solid var(--gold);
+    padding: 0 0 0 1.2rem;
+}
+
+.step span {
+    display: block;
+    font-family: var(--serif);
+    font-size: 3rem;
     font-weight: 700;
-    letter-spacing: 1px;
+    line-height: 1;
+    color: var(--gold-ink);
+    margin-bottom: 0.6rem;
     transition: var(--transition);
 }
 
-.team-card:hover {
-    transform: translateY(-8px);
+.step:hover span {
+    color: var(--brown);
+    transform: translateX(6px);
 }
 
-.team-card:hover .team-avatar {
-    border-color: var(--gold);
+.step h3 {
+    font-size: 1.4rem;
 }
 
-.team-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 0.2rem;
-}
-
-.role {
-    color: var(--gold);
-    font-size: 0.9rem;
+.step p {
     margin-bottom: 0;
 }
 
-/* Page À propos */
+/* FAQ */
+.accordion-item {
+    background-color: transparent;
+    border-color: var(--line);
+    border-radius: 0 !important;
+}
+
+.accordion-button {
+    background-color: transparent;
+    color: var(--brown);
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    border-radius: 0 !important;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #fff;
+    color: var(--brown);
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.2rem rgba(168, 122, 38, 0.35);
+}
+
+/* ========== 11. PAGE À PROPOS ========== */
+.story-lead {
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 2.6vw, 2rem);
+    line-height: 1.35;
+    color: var(--brown);
+}
+
 .about-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    object-fit: cover;
     transition: var(--transition);
 }
 
@@ -699,89 +966,178 @@ a {
     transform: scale(1.02);
 }
 
-.check-list {
-    list-style: none;
-    padding: 0;
+/* Valeurs : quatre colonnes séparées par des filets */
+.values {
+    border-top: 2px solid var(--brown);
 }
 
-.check-list li {
-    margin-bottom: 0.5rem;
-}
-
-.check-list i {
-    color: var(--gold);
-    margin-right: 0.5rem;
-}
-
-/* ========== 8. PAGES SPÉCIFIQUES ========== */
-/* Étapes de la méthode */
-.step {
-    text-align: center;
-    padding: 1.5rem;
-}
-
-.step span {
-    display: inline-flex;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--brown);
-    color: var(--gold-light);
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
+.value {
+    padding: 1.8rem 1.4rem;
+    border-right: 1px solid var(--line);
+    height: 100%;
     transition: var(--transition);
 }
 
-.step:hover span {
-    background-color: var(--gold);
-    color: #fff;
-    transform: scale(1.1);
+.values > div:last-child .value {
+    border-right: none;
 }
 
-.step h3 {
-    font-size: 1.3rem;
+.value i {
+    font-size: 1.8rem;
+    color: var(--gold);
+    display: inline-block;
+    margin-bottom: 0.6rem;
+    transition: var(--transition);
 }
 
-/* FAQ */
-.faq {
-    max-width: 800px;
+.value h3 {
+    font-size: 1.4rem;
 }
 
-.accordion-button:not(.collapsed) {
-    background-color: var(--cream);
+.value p {
+    margin-bottom: 0;
+}
+
+.value:hover {
+    background-color: #fff;
+}
+
+.value:hover i {
+    transform: scale(1.2) rotate(-8deg);
+}
+
+/* Équipe : chaque membre a sa petite arche */
+.team-card {
+    transition: var(--transition);
+}
+
+/* Arche avec les initiales du membre */
+.team-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 220px;
+    border-radius: 999px 999px 0 0;
+    margin-bottom: 1rem;
+    background: var(--gradient-brown);
+    color: var(--gold-light);
+    font-family: var(--serif);
+    font-size: 3.4rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.team-card:hover .team-avatar {
+    background: var(--gradient-gold);
     color: var(--brown);
 }
 
-.accordion-button:focus {
-    box-shadow: 0 0 0 0.2rem rgba(168, 122, 38, 0.35);
+.team-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.1rem;
 }
 
-/* Contact */
-.contact-form-box,
+.role {
+    color: var(--gold-ink);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+/* ========== 12. PAGE CONTACT ========== */
+/* Écran coupé en deux : coordonnées à gauche, lettre à droite */
+.contact-split {
+    min-height: calc(100vh - 68px);
+}
+
 .contact-info {
-    position: relative;
-    background-color: #fff;
-    padding: 2.5rem;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
     height: 100%;
+    background: var(--gradient-brown);
+    color: #fff;
+    padding: 3.5rem 2.5rem;
 }
 
-.contact-info {
-    background-color: var(--brown);
+.contact-info h1 {
     color: #fff;
+    font-size: clamp(2.6rem, 5vw, 3.3rem);
+    line-height: 1;
+    font-weight: 700;
 }
 
-.contact-info h2 {
-    color: #fff;
-    margin-bottom: 2rem;
+.contact-info .lead-text {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+}
+
+.info-item {
+    padding: 1rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.info-item h2 {
+    color: var(--gold-light);
+    font-family: var(--sans);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+}
+
+.info-item h2 i {
+    margin-right: 0.3rem;
+}
+
+.info-item p,
+.info-item address {
+    margin-bottom: 0;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.info-item a {
+    color: rgba(255, 255, 255, 0.88);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.info-item a:hover {
+    color: var(--gold-light);
+}
+
+.contact-form-box {
+    padding: 3.5rem 3rem;
+    max-width: 680px;
 }
 
 .contact-form-box h2 {
-    margin-bottom: 1.5rem;
+    font-size: clamp(1.8rem, 3.6vw, 2.5rem);
+    margin-bottom: 2rem;
+}
+
+.contact-form-box .form-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 0;
+}
+
+/* Champs à la manière d'une lettre : une simple ligne à remplir */
+.contact-form-box .form-control,
+.contact-form-box .form-select {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--line);
+    border-radius: 0;
+    padding-left: 0;
+}
+
+.contact-form-box .form-control:focus,
+.contact-form-box .form-select:focus {
+    border-bottom-color: var(--gold);
+    background-color: transparent;
+    box-shadow: none;
 }
 
 /* Champ piège anti-robots : placé hors de l'écran */
@@ -793,71 +1149,36 @@ a {
     overflow: hidden;
 }
 
-.form-control:focus,
-.form-select:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 0.2rem rgba(168, 122, 38, 0.25);
-}
-
-.info-item {
-    display: flex;
-    gap: 1.2rem;
-    margin-bottom: 1.6rem;
-}
-
-.info-item > i {
-    font-size: 1.4rem;
-    color: var(--gold-light);
-    width: 50px;
-    height: 50px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.info-item h3 {
-    color: #fff;
-    font-size: 1.1rem;
-    margin-bottom: 0.2rem;
-}
-
-.info-item p,
-.info-item address {
-    margin-bottom: 0;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.info-item a {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-}
-
-.info-item a:hover {
-    color: var(--gold-light);
-}
-
-/* ========== 9. PIED DE PAGE ========== */
+/* ========== 13. PIED DE PAGE ========== */
 .site-footer {
-    background-color: #2e1c09;
-    color: rgba(255, 255, 255, 0.7);
+    background-color: var(--brown-dark);
+    color: rgba(255, 255, 255, 0.75);
     padding: 4rem 0 1.5rem;
+    overflow: hidden;
 }
 
-.footer-brand {
-    color: #fff;
-    font-size: 1.4rem;
-}
-
-.footer-brand i {
-    color: var(--gold-light);
+/* Le nom de l'agence en très grand */
+.footer-word {
+    font-family: var(--serif);
+    font-size: clamp(4rem, 15vw, 12rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 2.5rem;
+    border-bottom: 2px solid var(--gold);
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .footer-title {
-    color: #fff;
-    font-size: 1.15rem;
+    color: var(--gold-light);
+    font-family: var(--sans);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
     margin-bottom: 1rem;
 }
 
@@ -868,7 +1189,7 @@ a {
 
 .footer-links a,
 .site-footer address {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255, 255, 255, 0.75);
     text-decoration: none;
     transition: var(--transition);
 }
@@ -882,30 +1203,34 @@ a {
     display: inline-flex;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     color: #fff;
     margin-right: 0.4rem;
     transition: var(--transition);
 }
 
 .socials a:hover {
-    background-color: var(--gold);
+    background-color: var(--gold-light);
+    border-color: var(--gold-light);
+    color: var(--brown-dark);
     transform: translateY(-4px);
 }
 
 .copyright {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
     margin-top: 2.5rem;
     padding-top: 1.5rem;
-    text-align: center;
     font-size: 0.85rem;
     margin-bottom: 0;
 }
 
-/* ========== 10. ANIMATIONS AU SCROLL ========== */
+.copyright a {
+    color: var(--gold-light);
+}
+
+/* ========== 14. ANIMATIONS AU SCROLL ========== */
 /* Les éléments .reveal sont cachés seulement si le JavaScript est actif
    (classe .js ajoutée sur <html>), puis apparaissent avec .visible */
 .js .reveal {
@@ -923,10 +1248,9 @@ a {
 #backToTop {
     position: fixed;
     bottom: 100px;
-    right: 30px;
+    right: 34px;
     width: 44px;
     height: 44px;
-    border-radius: 50%;
     border: none;
     background-color: var(--brown);
     color: #fff;
@@ -945,7 +1269,7 @@ a {
     background-color: var(--gold);
 }
 
-/* ========== 11. CHATBOT ========== */
+/* ========== 15. CHATBOT ========== */
 .chat-toggle {
     position: fixed;
     bottom: 25px;
@@ -953,7 +1277,7 @@ a {
     width: 62px;
     height: 62px;
     border-radius: 50%;
-    border: none;
+    border: 2px solid var(--brown);
     background: var(--gradient-gold);
     color: var(--brown);
     font-size: 1.7rem;
@@ -980,8 +1304,8 @@ a {
     width: 360px;
     max-height: 520px;
     background-color: #fff;
-    border-radius: 18px;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+    border: 2px solid var(--brown);
+    box-shadow: 8px 8px 0 var(--gold-light);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -1046,7 +1370,6 @@ a {
 .msg {
     max-width: 85%;
     padding: 0.6rem 0.9rem;
-    border-radius: 14px;
     margin-bottom: 0.7rem;
     font-size: 0.9rem;
     line-height: 1.5;
@@ -1056,19 +1379,17 @@ a {
 
 .msg-bot {
     background-color: #fff;
-    border-bottom-left-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-left: 3px solid var(--gold);
 }
 
 .msg-user {
     background-color: var(--brown);
     color: #fff;
     margin-left: auto;
-    border-bottom-right-radius: 4px;
 }
 
 .msg-typing {
-    color: #888;
+    color: #6f6253;
     font-style: italic;
 }
 
@@ -1079,11 +1400,12 @@ a {
 
 .chat-form {
     display: flex;
-    border-top: 1px solid #eee;
+    border-top: 2px solid var(--brown);
 }
 
 .chat-form input {
     flex: 1;
+    min-width: 0;
     border: none;
     padding: 0.9rem 1rem;
     outline: none;
@@ -1103,25 +1425,157 @@ a {
     background-color: var(--brown);
 }
 
-/* ========== 12. RESPONSIVE (MEDIA QUERIES) ========== */
-/* Tablettes et mobiles : menu déroulant sur fond plein */
-@media (max-width: 991.98px) {
+/* ========== 16. RESPONSIVE (MEDIA QUERIES) ========== */
+/* Grands écrans : la barre devient un rail vertical fixé à gauche */
+@media (min-width: 1200px) {
+    body {
+        padding-top: 0;
+        padding-left: var(--rail);
+    }
+
     #mainNav {
-        background-color: var(--brown);
+        right: auto;
+        bottom: 0;
+        width: var(--rail);
+        padding: 2rem 1.6rem;
+        align-items: stretch;
+    }
+
+    #mainNav .container-fluid {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        height: 100%;
+        padding: 0;
+    }
+
+    #mainNav .navbar-collapse {
+        flex-grow: 0;
+        flex-direction: column;
+        align-items: stretch;
+        margin-top: 2.5rem;
+    }
+
+    #mainNav .navbar-nav {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar-brand {
+        margin-right: 0;
+    }
+
+    .rail-coords {
+        display: block;
+        margin-top: auto;
+    }
+
+    .contact-split {
+        min-height: 100vh;
+    }
+}
+
+/* Colonnes décalées : uniquement quand elles sont côte à côte */
+@media (min-width: 992px) {
+    /* Cartes de services en quinconce */
+    .service-grid > div:nth-child(even) {
+        margin-top: 3rem;
+    }
+
+    /* Les étapes de la méthode montent de gauche à droite */
+    .steps > div:nth-child(1) { margin-top: 6rem; }
+    .steps > div:nth-child(2) { margin-top: 4rem; }
+    .steps > div:nth-child(3) { margin-top: 2rem; }
+
+    /* Avis et équipe en escalier */
+    .stagger > div:nth-child(3n + 2) {
+        margin-top: 2.5rem;
+    }
+
+    .stagger > div:nth-child(3n) {
+        margin-top: 5rem;
+    }
+
+    /* Le panneau de contact occupe toute la hauteur de l'écran */
+    .contact-split {
+        display: flex;
+    }
+
+    .contact-split > .row {
+        flex: 1;
+        min-width: 0;
+    }
+
+    /* La colonne de contact reste visible pendant la saisie */
+    .contact-info-inner {
+        position: sticky;
+        top: 3.5rem;
+    }
+}
+
+/* Tablettes et mobiles */
+@media (max-width: 991.98px) {
+    .hero-text {
+        padding-bottom: 2.5rem;
+    }
+
+    .hero::after {
+        bottom: 2.5rem;
+    }
+
+    .arch-carousel {
+        max-width: 480px;
+        height: 480px;
+        margin: 10px auto 0;
+    }
+
+    .sticky-title {
+        position: static;
+    }
+
+    .page-head-text {
+        padding-bottom: 2rem;
+    }
+
+    .arch-img {
+        max-width: 240px;
+        height: 260px;
+        margin: 0 auto;
+    }
+
+    .mosaic {
+        grid-template-columns: 1fr;
+    }
+
+    .mosaic .mosaic-big {
+        grid-row: auto;
+    }
+
+    .mosaic .mosaic-big .property-img {
+        flex: none;
+        min-height: 260px;
+    }
+
+    .value {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .step {
+        margin-bottom: 0.5rem;
+    }
+
+    .contact-form-box {
+        padding: 2.5rem 1.5rem;
+        max-width: none;
+    }
+
+    .contact-info {
+        padding: 2.5rem 1.5rem;
     }
 
     .navbar-collapse {
-        padding: 1rem 0;
-    }
-
-    .navbar-dark .btn-nav {
-        display: inline-block;
-        margin-top: 0.5rem;
-    }
-
-    .contact-form-box,
-    .contact-info {
-        padding: 1.8rem;
+        padding: 1rem 0 0.5rem;
     }
 }
 
@@ -1131,25 +1585,37 @@ a {
         padding: 3.5rem 0;
     }
 
-    .hero-content {
-        text-align: center;
+    .arch-carousel {
+        height: 400px;
+        min-height: 0;
     }
 
-    .hero-content .d-flex {
-        justify-content: center;
+    .stats .row > div:nth-child(2) {
+        border-right: none;
     }
 
-    .hero-slogan {
-        margin-left: auto;
-        margin-right: auto;
+    .stats .row > div {
+        padding-top: 1.4rem;
+        padding-bottom: 1.4rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     }
 
-    .page-banner {
-        padding: 8rem 0 3.5rem;
+    .service-index li {
+        grid-template-columns: 2.4rem 1fr;
     }
 
-    .stat-number {
-        font-size: 2.1rem;
+    .service-index i {
+        display: none;
+    }
+
+    .catalogue-body,
+    .service-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .catalogue-photo img {
+        height: 240px;
+        min-height: 0;
     }
 
     .bien-gallery img {
@@ -1165,6 +1631,6 @@ a {
     }
 
     #backToTop {
-        right: 20px;
+        right: 34px;
     }
 }
