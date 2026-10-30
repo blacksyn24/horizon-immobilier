@@ -37,6 +37,6 @@ Toutes les photos sont libres de droits.
 | `cotonou-rue.jpg` | Rue de Cotonou | Vurzie Kim (Pexels) | Licence Pexels |
 | `ouidah.jpg` | Ouidah vue du ciel | Adedoyin Aderomola (Pexels) | Licence Pexels |
 
-**Autres photos** (villa de Haie Vive, intérieurs, portraits de l'équipe) : [Unsplash](https://unsplash.com), licence Unsplash.
+**Autres photos** (villa de Haie Vive, intérieurs) : [Unsplash](https://unsplash.com), licence Unsplash.
 
 Les fichiers Wikimedia Commons sont consultables sur https://commons.wikimedia.org (rechercher le titre de la photo).

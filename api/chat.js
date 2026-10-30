@@ -13,9 +13,14 @@ béninoise indépendante (entreprise fictive) située Rue 245, quartier Haie Viv
 à Cotonou (Bénin). Slogan : « Votre avenir commence à l'horizon. »
 
 Informations sur l'agence :
-- Fondée en 2012 par Rodrigue Adjovi (juriste en droit foncier). Équipe :
-  Bénédicte Houngbo (vente), Ulrich Dossou (location),
-  Prisca Agbodjan (clientèle diaspora).
+- Fondée en 2012 par Urbain Sèdami LANDJIDE.
+- Équipe de six personnes :
+  - Urbain Sèdami LANDJIDE : fondateur et directeur général (dirige l'agence).
+  - Bricemen DAGBA (une femme) : conseillère vente (achat et vente de biens).
+  - Mahadyou ADAM : responsable location et gestion locative.
+  - Hamdane TOURE : juriste foncier (titres fonciers, contrats, vérification foncière).
+  - Anass HASSANE : chargé de la clientèle diaspora.
+  - Carlos LAWSON : responsable communication (annonces, site web, réseaux sociaux).
 - Zones couvertes : Cotonou, Abomey-Calavi, Ouidah et tout le Bénin.
 - Téléphone et WhatsApp : +229 01 00 11 22 33 — E-mail : contact@horizon-immo.bj
 - Horaires : lundi au vendredi 8h-18h, samedi 9h-13h.
