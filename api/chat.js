@@ -80,23 +80,31 @@ export default async function handler(req, res) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
+    // Requête vers Gemini (fonction réutilisée pour pouvoir réessayer)
+    const appelGemini = () => fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-goog-api-key": apiKey // clé envoyée uniquement de serveur à serveur
+            },
+            body: JSON.stringify({
+                systemInstruction: { parts: [{ text: CONTEXTE_ENTREPRISE }] },
+                contents,
+                generationConfig: { temperature: 0.6, maxOutputTokens: 1024 }
+            }),
+            signal: controller.signal
+        }
+    );
+
     try {
-        const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "x-goog-api-key": apiKey // clé envoyée uniquement de serveur à serveur
-                },
-                body: JSON.stringify({
-                    systemInstruction: { parts: [{ text: CONTEXTE_ENTREPRISE }] },
-                    contents,
-                    generationConfig: { temperature: 0.6, maxOutputTokens: 1024 }
-                }),
-                signal: controller.signal
-            }
-        );
+        let response = await appelGemini();
+
+        // Gemini est parfois surchargé (erreur 429 ou 5xx) : on réessaie une fois
+        if (response.status === 429 || response.status >= 500) {
+            response = await appelGemini();
+        }
 
         const data = await response.json();
 
