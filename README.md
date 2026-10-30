@@ -21,6 +21,22 @@ Le navigateur appelle `/api/chat` ; c'est la fonction serveur qui contacte Gemin
 3. Ajouter `GEMINI_API_KEY`, `RESEND_API_KEY` et `CONTACT_EMAIL` dans Settings > Environment Variables, puis redéployer
 
 ## Crédits images
-Toutes les photos sont libres de droits :
-- Photos du Bénin : vue aérienne de Cotonou (Yanick Folly, [Unsplash](https://unsplash.com)), Ganvié et lac Nokoué (Iwaria, [Pexels](https://www.pexels.com)), rue de Cotonou (Vurzie Kim, Pexels), Ouidah vue du ciel (Adedoyin Aderomola, Pexels).
-- Biens, intérieurs et portraits de l'équipe : [Unsplash](https://unsplash.com).
+Toutes les photos sont libres de droits.
+
+**Photos prises au Bénin**
+| Fichier | Sujet | Auteur | Licence |
+|---|---|---|---|
+| `bj-ouidah-cite.jpg` | Cité résidentielle à Ouidah | Ji-Elle (Wikimedia Commons) | CC BY-SA 4.0 |
+| `bj-ouidah-parcelle.jpg` | Parcelle et villas à Ouidah | Ji-Elle (Wikimedia Commons) | CC BY-SA 4.0 |
+| `bj-maison-cotonou.jpg` | Maison au bord d'une route à Cotonou | Fawaz.tairou (Wikimedia Commons) | CC BY-SA 4.0 |
+| `bj-plage-fidjrosse.jpg` | Plage de Fidjrossè, Cotonou | MyLady333 (Wikimedia Commons) | CC0 |
+| `bj-voie-fidjrosse.jpg` | Voie de Fidjrossè, Cotonou | Jean-Baptiste Amagbegnon (Wikimedia Commons) | CC BY-SA 4.0 |
+| `bj-calavi.jpg` | Vue d'Abomey-Calavi | Élisée.Adad (Wikimedia Commons) | CC BY-SA 4.0 |
+| `cotonou.jpg` | Vue aérienne de Cotonou | Yanick Folly (Unsplash) | Licence Unsplash |
+| `ganvie.jpg` | Ganvié, lac Nokoué | Iwaria (Pexels) | Licence Pexels |
+| `cotonou-rue.jpg` | Rue de Cotonou | Vurzie Kim (Pexels) | Licence Pexels |
+| `ouidah.jpg` | Ouidah vue du ciel | Adedoyin Aderomola (Pexels) | Licence Pexels |
+
+**Autres photos** (villa de Haie Vive, intérieurs, portraits de l'équipe) : [Unsplash](https://unsplash.com), licence Unsplash.
+
+Les fichiers Wikimedia Commons sont consultables sur https://commons.wikimedia.org (rechercher le titre de la photo).

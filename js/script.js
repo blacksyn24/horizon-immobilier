@@ -343,7 +343,8 @@ const BIENS = {
         photos: [
             { src: "img/bien2.jpg", alt: "Séjour de l'appartement" },
             { src: "img/det-cuisine2.jpg", alt: "Cuisine moderne" },
-            { src: "img/det-chambre1.jpg", alt: "Chambre principale" }
+            { src: "img/det-chambre1.jpg", alt: "Chambre principale" },
+            { src: "img/bj-voie-fidjrosse.jpg", alt: "La voie de Fidjrossè, à proximité" }
         ],
         description: "Appartement neuf au 2e étage d'une résidence calme et sécurisée, à 5 minutes de la plage de Fidjrossè. Séjour lumineux, cuisine équipée et balcon. Parfait pour une famille ou des professionnels.",
         caracteristiques: [
@@ -361,20 +362,20 @@ const BIENS = {
         titre: "Villa basse 4 chambres",
         statut: "À vendre",
         prix: "85 000 000 FCFA",
-        lieu: "Togbin, Abomey-Calavi",
+        lieu: "Cité résidentielle, Ouidah",
         photos: [
-            { src: "img/bien5.jpg", alt: "Façade de la villa basse" },
+            { src: "img/bj-ouidah-cite.jpg", alt: "Les villas de la cité résidentielle" },
             { src: "img/det-salon1.jpg", alt: "Salon spacieux" },
             { src: "img/det-cuisine1.jpg", alt: "Cuisine" }
         ],
-        description: "Villa de plain-pied sur une parcelle clôturée, dans un quartier résidentiel en plein développement entre Cotonou et Ouidah. Construction récente et solide, grande cour et espace pour agrandir. Documents fonciers vérifiés par notre équipe.",
+        description: "Villa de plain-pied dans une cité résidentielle calme de Ouidah, à 40 minutes de Cotonou. Construction récente et solide, toiture en tuiles, grande cour et espace pour agrandir. Documents fonciers vérifiés par notre équipe.",
         caracteristiques: [
             ["Type", "Villa basse (plain-pied)"],
             ["Chambres", "4"],
             ["Superficie du terrain", "400 m²"],
             ["Surface habitable", "180 m²"],
             ["Situation foncière", "Titre foncier"],
-            ["Accès", "À 800 m de la route des pêches"]
+            ["Accès", "À 40 min de Cotonou"]
         ],
         equipements: ["Parcelle clôturée", "Portail automatique", "Forage", "Cour pavée", "Dépendance"]
     },
@@ -385,12 +386,12 @@ const BIENS = {
         prix: "1 200 000 FCFA / mois",
         lieu: "Fidjrossè Plage, Cotonou",
         photos: [
-            { src: "img/bien1.jpg", alt: "Villa duplex et sa piscine" },
-            { src: "img/det-piscine.jpg", alt: "Terrasse et piscine" },
+            { src: "img/bj-maison-cotonou.jpg", alt: "La villa et ses balcons" },
+            { src: "img/bj-plage-fidjrosse.jpg", alt: "La plage de Fidjrossè, à deux minutes" },
             { src: "img/det-chambre2.jpg", alt: "Chambre meublée" },
-            { src: "img/hero2.jpg", alt: "Jardin et espace extérieur" }
+            { src: "img/det-piscine.jpg", alt: "Terrasse et piscine" }
         ],
-        description: "Villa entièrement meublée et décorée, face à l'océan. Piscine, grande terrasse et jardin tropical. Idéale pour une famille expatriée, un diplomate ou une location de standing.",
+        description: "Villa à étage entièrement meublée, à deux minutes de la plage de Fidjrossè. Piscine, grande terrasse et jardin tropical. Idéale pour une famille expatriée, un diplomate ou une location de standing.",
         caracteristiques: [
             ["Type", "Villa duplex meublée"],
             ["Chambres", "6"],
@@ -408,10 +409,10 @@ const BIENS = {
         prix: "15 000 000 FCFA",
         lieu: "Pahou, Ouidah",
         photos: [
-            { src: "img/terrain.jpg", alt: "La parcelle au coucher du soleil" },
+            { src: "img/bj-ouidah-parcelle.jpg", alt: "La parcelle et les villas voisines" },
             { src: "img/ouidah.jpg", alt: "Vue aérienne de la zone de Ouidah" }
         ],
-        description: "Parcelle plate et sèche, en bordure de goudron, dans une zone en forte croissance entre Cotonou et Ouidah. Idéale pour construire une maison familiale ou réaliser un investissement. Le titre foncier a été vérifié auprès de l'ANDF.",
+        description: "Parcelle plate et sèche dans une cité résidentielle déjà construite de Ouidah, en bordure de goudron. Idéale pour construire une maison familiale ou réaliser un investissement. Le titre foncier a été vérifié auprès de l'ANDF.",
         caracteristiques: [
             ["Type", "Terrain constructible"],
             ["Superficie", "500 m²"],

@@ -35,7 +35,7 @@ Services et tarifs (en FCFA) :
 
 Biens disponibles :
 - Villa contemporaine avec piscine, Haie Vive (Cotonou) : 350 000 000 FCFA, 5 chambres, 600 m².
-- Villa basse 4 chambres, Togbin (Abomey-Calavi) : 85 000 000 FCFA, 400 m², titre foncier.
+- Villa basse 4 chambres, cité résidentielle de Ouidah : 85 000 000 FCFA, 400 m², titre foncier.
 - Parcelle de 500 m², Pahou (Ouidah) : 15 000 000 FCFA, titre foncier, bord goudron.
 - Appartement 3 chambres, Fidjrossè (Cotonou) : 350 000 FCFA/mois, 140 m², parking.
 - Villa duplex meublée vue mer, Fidjrossè Plage (Cotonou) : 1 200 000 FCFA/mois, 6 chambres, piscine.
