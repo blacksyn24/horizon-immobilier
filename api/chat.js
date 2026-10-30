@@ -44,7 +44,11 @@ Règles :
   propose plutôt de contacter un conseiller ou de remplir le formulaire de contact.
 `;
 
-const MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
+// Modèle rapide : répond en 2-3 secondes (les modèles « flash » complets sont trop lents ici)
+const MODEL = process.env.GEMINI_MODEL || "gemini-flash-lite-latest";
+
+// Temps maximum d'attente de la réponse de Gemini (en millisecondes)
+const TIMEOUT_MS = 20000;
 
 export default async function handler(req, res) {
     // Seules les requêtes POST sont acceptées
@@ -72,6 +76,10 @@ export default async function handler(req, res) {
 
     contents.push({ role: "user", parts: [{ text: message }] });
 
+    // Annule la requête si Gemini met trop de temps à répondre
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+
     try {
         const response = await fetch(
             `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
@@ -85,7 +93,8 @@ export default async function handler(req, res) {
                     systemInstruction: { parts: [{ text: CONTEXTE_ENTREPRISE }] },
                     contents,
                     generationConfig: { temperature: 0.6, maxOutputTokens: 1024 }
-                })
+                }),
+                signal: controller.signal
             }
         );
 
@@ -105,7 +114,12 @@ export default async function handler(req, res) {
 
         return res.status(200).json({ reply });
     } catch (error) {
+        if (error.name === "AbortError") {
+            return res.status(504).json({ error: "Le service IA met trop de temps à répondre" });
+        }
         console.error("Erreur serveur :", error);
         return res.status(500).json({ error: "Erreur interne" });
+    } finally {
+        clearTimeout(timer);
     }
 }
