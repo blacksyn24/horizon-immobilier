@@ -7,7 +7,7 @@ Projet hackathon XHTML & CSS : site de présentation de l'agence immobilière fi
 - `a-propos.html` : histoire, valeurs, équipe
 - `services.html` : services en cartes Bootstrap, méthode, FAQ
 - `biens.html` : biens à vendre / à louer avec filtre et fiche détaillée (galerie, caractéristiques, demande de visite)
-- `contact.html` : formulaire validé en JS + coordonnées
+- `contact.html` : formulaire validé en JS, envoyé par e-mail via `api/contact.js` (Resend) + coordonnées
 
 ## Technologies
 HTML5, CSS3 (`css/style.css`), Bootstrap 5, JavaScript (`js/script.js`), fonction serverless Vercel (`api/chat.js`) pour le chatbot Gemini.
@@ -18,7 +18,7 @@ Le navigateur appelle `/api/chat` ; c'est la fonction serveur qui contacte Gemin
 ## Déploiement sur Vercel
 1. Créer une clé gratuite sur https://aistudio.google.com/apikey
 2. Importer le projet sur Vercel (ou `vercel` en ligne de commande)
-3. Ajouter `GEMINI_API_KEY` dans Settings > Environment Variables, puis redéployer
+3. Ajouter `GEMINI_API_KEY`, `RESEND_API_KEY` et `CONTACT_EMAIL` dans Settings > Environment Variables, puis redéployer
 
 ## Crédits images
 Toutes les photos sont libres de droits :

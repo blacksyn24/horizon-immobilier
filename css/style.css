@@ -754,6 +754,7 @@ a {
 /* Contact */
 .contact-form-box,
 .contact-info {
+    position: relative;
     background-color: #fff;
     padding: 2.5rem;
     border-radius: var(--radius);
@@ -773,6 +774,15 @@ a {
 
 .contact-form-box h2 {
     margin-bottom: 1.5rem;
+}
+
+/* Champ piège anti-robots : placé hors de l'écran */
+.hp-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
 }
 
 .form-control:focus,

@@ -131,6 +131,9 @@ function initContactForm() {
     if (!form) return;
 
     const success = document.getElementById("formSuccess");
+    const failure = document.getElementById("formError");
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const submitLabel = submitBtn.innerHTML;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
     // Règles de validation pour chaque champ
@@ -153,8 +156,9 @@ function initContactForm() {
         form.elements[name].addEventListener("input", (e) => checkField(e.target));
     });
 
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async (event) => {
         event.preventDefault();
+        failure.classList.add("d-none");
 
         const allValid = Object.keys(rules)
             .map((name) => checkField(form.elements[name]))
@@ -166,10 +170,30 @@ function initContactForm() {
             return;
         }
 
-        // Site vitrine : pas de serveur d'envoi, on simule la réussite
-        success.classList.remove("d-none");
-        form.reset();
-        form.querySelectorAll(".is-valid").forEach((f) => f.classList.remove("is-valid"));
+        // Bouton désactivé pendant l'envoi (évite les doubles clics)
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Envoi en cours...';
+
+        try {
+            // Envoi à NOTRE fonction serveur (api/contact.js), qui transmet l'e-mail
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(Object.fromEntries(new FormData(form)))
+            });
+            if (!response.ok) throw new Error(`Erreur ${response.status}`);
+
+            success.classList.remove("d-none");
+            form.reset();
+            form.querySelectorAll(".is-valid").forEach((f) => f.classList.remove("is-valid"));
+        } catch (error) {
+            success.classList.add("d-none");
+            failure.classList.remove("d-none");
+            console.error("Formulaire :", error);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = submitLabel;
+        }
     });
 }
 
