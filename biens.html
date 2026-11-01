@@ -19,11 +19,26 @@
 </head>
 <body>
 
-    <!-- ===================== RAIL DE NAVIGATION =====================
-         Barre en haut sur mobile, rail vertical à gauche sur grand écran -->
-    <header>
-        <nav class="navbar navbar-expand-xl navbar-dark" id="mainNav">
-            <div class="container-fluid">
+    <!-- ===================== BANDEAU DE COORDONNÉES ===================== -->
+    <div class="topbar">
+        <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <p class="mb-0">
+                <a href="tel:+2290100112233"><i class="bi bi-telephone"></i> +229 01 00 11 22 33</a>
+                <a href="mailto:contact@horizon-immo.bj" class="ms-3"><i class="bi bi-envelope"></i> contact@horizon-immo.bj</a>
+            </p>
+            <p class="mb-0 topbar-socials">
+                <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ===================== BARRE DE NAVIGATION =====================
+         Reste collée en haut de l'écran ; menu hamburger sous 992 px -->
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container">
                 <a class="navbar-brand" href="index.html">
                     <i class="bi bi-sunrise-fill"></i> Horizon<span>Immobilier</span>
                 </a>
@@ -33,34 +48,26 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="menu">
-                    <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="index.html"><span class="nav-num">01</span> Accueil</a></li>
-                        <li class="nav-item"><a class="nav-link" href="a-propos.html"><span class="nav-num">02</span> À propos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="services.html"><span class="nav-num">03</span> Services</a></li>
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="biens.html"><span class="nav-num">04</span> Nos biens</a></li>
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="a-propos.html">À propos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="biens.html">Nos biens</a></li>
                         <li class="nav-item"><a class="nav-link btn-nav" href="contact.html">Contact</a></li>
                     </ul>
                 </div>
-                <!-- Coordonnées géographiques de Cotonou -->
-                <p class="rail-coords">6°22′N 2°26′E<br>Cotonou, Bénin</p>
             </div>
         </nav>
     </header>
 
     <main>
         <!-- ===================== EN-TÊTE DE PAGE ===================== -->
-        <section class="page-head">
-            <div class="container">
-                <div class="row align-items-end">
-                    <div class="col-lg-8 page-head-text">
-                        <p class="overline">Le catalogue</p>
-                        <h1>Nos biens</h1>
-                        <p class="lead-text">Trouvez la villa, l'appartement ou la parcelle qui vous ressemble.</p>
-                    </div>
-                    <div class="col-lg-4">
-                        <img src="img/det-piscine.jpg" class="arch-img" alt="Piscine d'une villa">
-                    </div>
-                </div>
+        <section class="page-banner">
+            <img src="img/det-piscine.jpg" class="page-banner-img" alt="Piscine d'une villa">
+            <div class="container page-banner-text">
+                <p class="overline">Le catalogue</p>
+                <h1>Nos biens</h1>
+                <p class="lead-text">Trouvez la villa, l'appartement ou la parcelle qui vous ressemble.</p>
             </div>
         </section>
 
@@ -77,170 +84,122 @@
 
                 <div class="row g-4">
                     <!-- Bien 1 -->
-                    <div class="col-12 property-item" data-type="vente">
+                    <div class="col-md-6 col-lg-4 property-item" data-type="vente">
                         <article class="card property-card">
-                            <div class="row g-0">
-                                <div class="col-lg-7">
-                                    <div class="property-img catalogue-photo">
-                                        <img src="img/bien3.jpg" alt="Villa contemporaine avec piscine">
-                                        <span class="badge-type">À vendre</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="catalogue-body">
-                                        <p class="price">350 000 000 FCFA</p>
-                                        <h2 class="card-title">Villa contemporaine avec piscine</h2>
-                                        <p class="location"><i class="bi bi-geo-alt"></i> Haie Vive, Cotonou</p>
-                                        <ul class="property-meta">
-                                            <li><i class="bi bi-door-open"></i> 5 chambres</li>
-                                            <li><i class="bi bi-arrows-fullscreen"></i> 600 m²</li>
-                                            <li><i class="bi bi-water"></i> Piscine</li>
-                                        </ul>
-                                        <button type="button" class="btn-details stretched-link" data-bien="villa-haie-vive">
-                                            Voir le détail <i class="bi bi-arrow-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                            <div class="property-img">
+                                <img src="img/bien3.jpg" alt="Villa contemporaine avec piscine">
+                                <span class="badge-type">À vendre</span>
+                                <p class="price">350 000 000 FCFA</p>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Villa contemporaine avec piscine</h3>
+                                <p class="location"><i class="bi bi-geo-alt"></i> Haie Vive, Cotonou</p>
+                                <ul class="property-meta">
+                                <li><i class="bi bi-door-open"></i> 5 chambres</li>
+                                <li><i class="bi bi-arrows-fullscreen"></i> 600 m²</li>
+                                <li><i class="bi bi-water"></i> Piscine</li>
+                                </ul>
+                                <button type="button" class="btn-details stretched-link" data-bien="villa-haie-vive">Détails</button>
                             </div>
                         </article>
                     </div>
                     <!-- Bien 2 -->
-                    <div class="col-12 property-item" data-type="location">
+                    <div class="col-md-6 col-lg-4 property-item" data-type="location">
                         <article class="card property-card">
-                            <div class="row g-0">
-                                <div class="col-lg-7 order-lg-2">
-                                    <div class="property-img catalogue-photo">
-                                        <img src="img/bien2.jpg" alt="Appartement lumineux">
-                                        <span class="badge-type badge-rent">À louer</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="catalogue-body">
-                                        <p class="price">350 000 FCFA / mois</p>
-                                        <h2 class="card-title">Appartement 3 chambres</h2>
-                                        <p class="location"><i class="bi bi-geo-alt"></i> Fidjrossè, Cotonou</p>
-                                        <ul class="property-meta">
-                                            <li><i class="bi bi-door-open"></i> 3 chambres</li>
-                                            <li><i class="bi bi-arrows-fullscreen"></i> 140 m²</li>
-                                            <li><i class="bi bi-p-circle"></i> Parking</li>
-                                        </ul>
-                                        <button type="button" class="btn-details stretched-link" data-bien="appart-fidjrosse">
-                                            Voir le détail <i class="bi bi-arrow-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                            <div class="property-img">
+                                <img src="img/bien2.jpg" alt="Appartement lumineux">
+                                <span class="badge-type badge-rent">À louer</span>
+                                <p class="price">350 000 FCFA / mois</p>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Appartement 3 chambres</h3>
+                                <p class="location"><i class="bi bi-geo-alt"></i> Fidjrossè, Cotonou</p>
+                                <ul class="property-meta">
+                                <li><i class="bi bi-door-open"></i> 3 chambres</li>
+                                <li><i class="bi bi-arrows-fullscreen"></i> 140 m²</li>
+                                <li><i class="bi bi-p-circle"></i> Parking</li>
+                                </ul>
+                                <button type="button" class="btn-details stretched-link" data-bien="appart-fidjrosse">Détails</button>
                             </div>
                         </article>
                     </div>
                     <!-- Bien 3 -->
-                    <div class="col-12 property-item" data-type="vente">
+                    <div class="col-md-6 col-lg-4 property-item" data-type="vente">
                         <article class="card property-card">
-                            <div class="row g-0">
-                                <div class="col-lg-7">
-                                    <div class="property-img catalogue-photo">
-                                        <img src="img/bj-ouidah-cite.jpg" alt="Villas basses dans une cité résidentielle de Ouidah">
-                                        <span class="badge-type">À vendre</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="catalogue-body">
-                                        <p class="price">85 000 000 FCFA</p>
-                                        <h2 class="card-title">Villa basse 4 chambres</h2>
-                                        <p class="location"><i class="bi bi-geo-alt"></i> Cité résidentielle, Ouidah</p>
-                                        <ul class="property-meta">
-                                            <li><i class="bi bi-door-open"></i> 4 chambres</li>
-                                            <li><i class="bi bi-arrows-fullscreen"></i> 400 m²</li>
-                                            <li><i class="bi bi-file-earmark-check"></i> Titre foncier</li>
-                                        </ul>
-                                        <button type="button" class="btn-details stretched-link" data-bien="villa-togbin">
-                                            Voir le détail <i class="bi bi-arrow-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                            <div class="property-img">
+                                <img src="img/bj-ouidah-cite.jpg" alt="Villas basses dans une cité résidentielle de Ouidah">
+                                <span class="badge-type">À vendre</span>
+                                <p class="price">85 000 000 FCFA</p>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Villa basse 4 chambres</h3>
+                                <p class="location"><i class="bi bi-geo-alt"></i> Cité résidentielle, Ouidah</p>
+                                <ul class="property-meta">
+                                <li><i class="bi bi-door-open"></i> 4 chambres</li>
+                                <li><i class="bi bi-arrows-fullscreen"></i> 400 m²</li>
+                                <li><i class="bi bi-file-earmark-check"></i> Titre foncier</li>
+                                </ul>
+                                <button type="button" class="btn-details stretched-link" data-bien="villa-togbin">Détails</button>
                             </div>
                         </article>
                     </div>
                     <!-- Bien 4 -->
-                    <div class="col-12 property-item" data-type="location">
+                    <div class="col-md-6 col-lg-4 property-item" data-type="location">
                         <article class="card property-card">
-                            <div class="row g-0">
-                                <div class="col-lg-7 order-lg-2">
-                                    <div class="property-img catalogue-photo">
-                                        <img src="img/bj-maison-cotonou.jpg" alt="Villa à étage avec balcons à Fidjrossè">
-                                        <span class="badge-type badge-rent">À louer</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="catalogue-body">
-                                        <p class="price">1 200 000 FCFA / mois</p>
-                                        <h2 class="card-title">Villa duplex meublée vue mer</h2>
-                                        <p class="location"><i class="bi bi-geo-alt"></i> Fidjrossè Plage, Cotonou</p>
-                                        <ul class="property-meta">
-                                            <li><i class="bi bi-door-open"></i> 6 chambres</li>
-                                            <li><i class="bi bi-arrows-fullscreen"></i> 500 m²</li>
-                                            <li><i class="bi bi-water"></i> Piscine</li>
-                                        </ul>
-                                        <button type="button" class="btn-details stretched-link" data-bien="duplex-fidjrosse-plage">
-                                            Voir le détail <i class="bi bi-arrow-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                            <div class="property-img">
+                                <img src="img/villa-piscine-ghana.jpg" alt="Villa à étage avec piscine, terrasse et jardin tropical">
+                                <span class="badge-type badge-rent">À louer</span>
+                                <p class="price">1 200 000 FCFA / mois</p>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Villa duplex meublée vue mer</h3>
+                                <p class="location"><i class="bi bi-geo-alt"></i> Fidjrossè Plage, Cotonou</p>
+                                <ul class="property-meta">
+                                <li><i class="bi bi-door-open"></i> 6 chambres</li>
+                                <li><i class="bi bi-arrows-fullscreen"></i> 500 m²</li>
+                                <li><i class="bi bi-water"></i> Piscine</li>
+                                </ul>
+                                <button type="button" class="btn-details stretched-link" data-bien="duplex-fidjrosse-plage">Détails</button>
                             </div>
                         </article>
                     </div>
                     <!-- Bien 5 -->
-                    <div class="col-12 property-item" data-type="vente">
+                    <div class="col-md-6 col-lg-4 property-item" data-type="vente">
                         <article class="card property-card">
-                            <div class="row g-0">
-                                <div class="col-lg-7">
-                                    <div class="property-img catalogue-photo">
-                                        <img src="img/bj-ouidah-parcelle.jpg" alt="Parcelle de sable dans une cité résidentielle de Ouidah">
-                                        <span class="badge-type">À vendre</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="catalogue-body">
-                                        <p class="price">15 000 000 FCFA</p>
-                                        <h2 class="card-title">Parcelle de 500 m²</h2>
-                                        <p class="location"><i class="bi bi-geo-alt"></i> Pahou, Ouidah</p>
-                                        <ul class="property-meta">
-                                            <li><i class="bi bi-arrows-fullscreen"></i> 500 m²</li>
-                                            <li><i class="bi bi-file-earmark-check"></i> Titre foncier</li>
-                                            <li><i class="bi bi-signpost"></i> Bord goudron</li>
-                                        </ul>
-                                        <button type="button" class="btn-details stretched-link" data-bien="parcelle-pahou">
-                                            Voir le détail <i class="bi bi-arrow-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                            <div class="property-img">
+                                <img src="img/bj-ouidah-parcelle.jpg" alt="Parcelle de sable dans une cité résidentielle de Ouidah">
+                                <span class="badge-type">À vendre</span>
+                                <p class="price">15 000 000 FCFA</p>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Parcelle de 500 m²</h3>
+                                <p class="location"><i class="bi bi-geo-alt"></i> Pahou, Ouidah</p>
+                                <ul class="property-meta">
+                                <li><i class="bi bi-arrows-fullscreen"></i> 500 m²</li>
+                                <li><i class="bi bi-file-earmark-check"></i> Titre foncier</li>
+                                <li><i class="bi bi-signpost"></i> Bord goudron</li>
+                                </ul>
+                                <button type="button" class="btn-details stretched-link" data-bien="parcelle-pahou">Détails</button>
                             </div>
                         </article>
                     </div>
                     <!-- Bien 6 -->
-                    <div class="col-12 property-item" data-type="location">
+                    <div class="col-md-6 col-lg-4 property-item" data-type="location">
                         <article class="card property-card">
-                            <div class="row g-0">
-                                <div class="col-lg-7 order-lg-2">
-                                    <div class="property-img catalogue-photo">
-                                        <img src="img/hero3.jpg" alt="Studio cosy et meublé">
-                                        <span class="badge-type badge-rent">À louer</span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="catalogue-body">
-                                        <p class="price">150 000 FCFA / mois</p>
-                                        <h2 class="card-title">Studio meublé</h2>
-                                        <p class="location"><i class="bi bi-geo-alt"></i> Cadjèhoun, Cotonou</p>
-                                        <ul class="property-meta">
-                                            <li><i class="bi bi-door-open"></i> 1 chambre</li>
-                                            <li><i class="bi bi-arrows-fullscreen"></i> 35 m²</li>
-                                            <li><i class="bi bi-wifi"></i> Meublé</li>
-                                        </ul>
-                                        <button type="button" class="btn-details stretched-link" data-bien="studio-cadjehoun">
-                                            Voir le détail <i class="bi bi-arrow-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
+                            <div class="property-img">
+                                <img src="img/hero3.jpg" alt="Studio cosy et meublé">
+                                <span class="badge-type badge-rent">À louer</span>
+                                <p class="price">150 000 FCFA / mois</p>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Studio meublé</h3>
+                                <p class="location"><i class="bi bi-geo-alt"></i> Cadjèhoun, Cotonou</p>
+                                <ul class="property-meta">
+                                <li><i class="bi bi-door-open"></i> 1 chambre</li>
+                                <li><i class="bi bi-arrows-fullscreen"></i> 35 m²</li>
+                                <li><i class="bi bi-wifi"></i> Meublé</li>
+                                </ul>
+                                <button type="button" class="btn-details stretched-link" data-bien="studio-cadjehoun">Détails</button>
                             </div>
                         </article>
                     </div>
@@ -318,7 +277,6 @@
     <!-- ===================== PIED DE PAGE ===================== -->
     <footer class="site-footer">
         <div class="container">
-            <p class="footer-word">Horizon</p>
             <div class="row g-4">
                 <div class="col-md-4">
                     <h2 class="footer-title">L'agence</h2>

@@ -1,17 +1,17 @@
 /* ==========================================================
    HORIZON IMMOBILIER — Feuille de style personnalisée
-   Concept : « la ligne d'horizon »
-   - un rail de navigation vertical à gauche (au lieu d'une barre en haut) ;
-   - des fenêtres en arche, inspirées des façades des villas ;
-   - une ligne dorée qui traverse les pages, comme un horizon.
+   Mise en page classique d'agence immobilière :
+   - bandeau de coordonnées et barre de navigation horizontale ;
+   - grand carrousel pleine largeur avec le texte posé dessus ;
+   - sections centrées, cartes arrondies, prix affiché sur la photo.
    Sommaire :
    1. Variables et base
    2. Boutons
-   3. Rail de navigation
-   4. Hero / carrousel en arche
-   5. En-têtes des pages internes
+   3. Bandeau et barre de navigation
+   4. Hero / carrousel
+   5. Bannières des pages internes
    6. Sections communes
-   7. Page d'accueil (chiffres, index des services, mosaïque, avis)
+   7. Page d'accueil (projets, engagements, chiffres, avis)
    8. Cartes de biens et catalogue
    9. Fenêtre de détail d'un bien
    10. Page Services (cartes, méthode, FAQ)
@@ -26,17 +26,19 @@
 /* ========== 1. VARIABLES ET BASE ========== */
 :root {
     --brown: #583714;       /* brun chocolat : fonds sombres, titres */
-    --brown-dark: #2e1c09;  /* brun très sombre : rail et pied de page */
+    --brown-dark: #2e1c09;  /* brun très sombre : bandeau et pied de page */
     --brown-light: #7a5328;
     --gold: #a87a26;        /* or foncé : filets, icônes sur fond clair */
     --gold-ink: #7f5c1b;    /* or foncé lisible pour les petits textes */
     --gold-light: #ffeb97;  /* or pâle : accents sur fonds sombres */
-    --cream: #fff9e8;       /* crème : fond général */
-    --line: rgba(88, 55, 20, 0.18); /* filets fins */
+    --cream: #fff9e8;       /* crème : fond des sections teintées */
+    --line: rgba(88, 55, 20, 0.14); /* bordures fines */
+    --shadow: 0 6px 22px rgba(46, 28, 9, 0.08);        /* ombre douce des cartes */
+    --shadow-hover: 0 14px 34px rgba(46, 28, 9, 0.16); /* ombre au survol */
+    --radius: 12px;
     --gradient-gold: linear-gradient(135deg, #ffeb97 0%, #d9b45a 100%);   /* dégradé or */
     --gradient-brown: linear-gradient(135deg, #3a240c 0%, #583714 55%, #8a6326 100%); /* dégradé brun → or */
     --text: #4a3b2c;
-    --rail: 230px;          /* largeur du rail de navigation */
     --serif: 'Fraunces', serif;
     --sans: 'Manrope', sans-serif;
     --transition: all 0.3s ease;
@@ -45,9 +47,8 @@
 body {
     font-family: var(--sans);
     color: var(--text);
-    background-color: var(--cream);
+    background-color: #fff;
     line-height: 1.7;
-    padding-top: 68px;      /* hauteur de la barre mobile */
 }
 
 h1, h2, h3,
@@ -62,22 +63,15 @@ a {
     color: var(--brown-light);
 }
 
-/* Les conteneurs s'adaptent à la place laissée par le rail */
-main .container,
-.site-footer .container {
-    max-width: 1120px;
-}
-
 /* ========== 2. BOUTONS ========== */
 .btn-main {
     background: var(--gradient-gold);
     color: var(--brown);
-    border: 2px solid var(--brown);
-    border-radius: 0;
-    padding-left: 1.8rem;
-    padding-right: 1.8rem;
-    font-weight: 600;
-    box-shadow: 5px 5px 0 var(--brown);
+    border: none;
+    border-radius: 8px;
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+    font-weight: 700;
     transition: var(--transition);
 }
 
@@ -85,18 +79,17 @@ main .container,
 .btn-main:focus {
     background: var(--gradient-gold);
     color: var(--brown);
-    border-color: var(--brown);
-    box-shadow: 0 0 0 var(--brown);
-    transform: translate(5px, 5px);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
 }
 
 .btn-brown {
     background-color: var(--brown);
     color: #fff;
     border: 2px solid var(--brown);
-    border-radius: 0;
-    padding: 0.7rem 1.8rem;
-    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.6rem 1.6rem;
+    font-weight: 700;
     transition: var(--transition);
 }
 
@@ -105,285 +98,269 @@ main .container,
     color: var(--brown);
 }
 
-/* Bouton fin avec un simple trait dessous */
-.btn-line {
-    color: var(--brown);
+/* Bouton clair posé sur une photo */
+.btn-ghost {
+    background-color: rgba(46, 28, 9, 0.35);
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 8px;
     font-weight: 600;
-    text-decoration: none;
-    border-bottom: 2px solid var(--gold);
-    padding-bottom: 0.2rem;
     transition: var(--transition);
 }
 
-.btn-line:hover {
-    color: var(--gold-ink);
-    letter-spacing: 0.03em;
+.btn-ghost:hover,
+.btn-ghost:focus {
+    background-color: #fff;
+    color: var(--brown);
 }
 
-/* ========== 3. RAIL DE NAVIGATION ========== */
-/* Sur mobile et tablette : barre en haut avec le bouton hamburger.
-   À partir de 1200 px : rail vertical fixé à gauche (voir la section 16). */
-#mainNav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1030;
+/* ========== 3. BANDEAU ET BARRE DE NAVIGATION ========== */
+.topbar {
     background-color: var(--brown-dark);
+    color: #fff;
+    padding: 0.4rem 0;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.topbar a {
+    color: #fff;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.topbar a:hover {
+    color: var(--gold-light);
+}
+
+.topbar-socials a {
+    margin-left: 0.8rem;
+}
+
+/* La barre reste visible pendant le défilement */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+}
+
+#mainNav {
+    background-color: #fff;
     padding: 0.7rem 0;
+    border-bottom: 1px solid var(--line);
+    transition: var(--transition);
+}
+
+/* Classe ajoutée par js/script.js quand la page défile */
+#mainNav.scrolled {
+    box-shadow: var(--shadow);
 }
 
 .navbar-brand {
-    color: #fff !important;
-    font-size: 1.45rem;
+    color: var(--brown) !important;
+    font-size: 1.5rem;
     font-weight: 700;
+    line-height: 1.1;
 }
 
-.navbar-brand i,
-.navbar-brand span {
-    color: var(--gold-light);
+.navbar-brand i {
+    color: var(--gold);
 }
 
 .navbar-brand span {
     font-family: var(--sans);
-    font-weight: 400;
-    font-size: 0.72rem;
+    font-weight: 700;
+    font-size: 0.68rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
+    color: var(--gold-ink);
     display: block;
-    margin-top: -0.2rem;
 }
 
-.navbar-dark .nav-link {
-    color: rgba(255, 255, 255, 0.78);
-    display: flex;
-    align-items: baseline;
-    gap: 0.8rem;
-    padding: 0.6rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.navbar-light .navbar-nav .nav-link {
+    color: var(--brown);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.5rem 0.9rem;
+    border-bottom: 2px solid transparent;
     transition: var(--transition);
 }
 
-/* Numéro devant chaque lien */
-.nav-num {
-    font-family: var(--serif);
-    font-size: 0.8rem;
-    color: var(--gold-light);
-}
-
-.navbar-dark .nav-link:hover,
-.navbar-dark .nav-link.active {
-    color: #fff;
-    padding-left: 0.6rem;
-    border-bottom-color: var(--gold-light);
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active {
+    color: var(--gold-ink);
+    border-bottom-color: var(--gold);
 }
 
 /* Lien « Contact » en forme de bouton */
-.navbar-dark .btn-nav {
-    justify-content: center;
-    margin-top: 1rem;
-    padding: 0.55rem 0;
-    border: 2px solid var(--gold-light);
-    color: var(--gold-light);
-    font-weight: 600;
+.navbar-light .navbar-nav .btn-nav {
+    background-color: var(--brown);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.2rem;
+    margin-left: 0.6rem;
 }
 
-.navbar-dark .btn-nav:hover,
-.navbar-dark .btn-nav.active {
-    background-color: var(--gold-light);
-    border-color: var(--gold-light);
-    color: var(--brown-dark);
-    padding-left: 0;
+.navbar-light .navbar-nav .btn-nav:hover,
+.navbar-light .navbar-nav .btn-nav.active {
+    background-color: var(--gold);
+    color: #fff;
 }
 
-.navbar-toggler {
-    border-color: rgba(255, 235, 151, 0.5);
-    border-radius: 0;
-}
-
-/* Coordonnées de Cotonou en bas du rail (masquées sur mobile) */
-.rail-coords {
-    display: none;
-    margin: 0;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.55);
-}
-
-/* ========== 4. HERO / CARROUSEL EN ARCHE ========== */
+/* ========== 4. HERO / CARROUSEL ========== */
 .hero {
     position: relative;
-    padding: 3rem 0 0;
     overflow: hidden;
 }
 
-/* La ligne d'horizon traverse le hero derrière l'arche */
-.hero::after {
-    content: "";
+.hero-carousel,
+.hero-carousel .carousel-inner,
+.hero-carousel .carousel-item {
+    height: min(82vh, 700px);
+    min-height: 520px;
+}
+
+.hero-carousel .carousel-item img {
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Cadrage de la statue : garde la tête dans le champ */
+.hero-carousel .carousel-item img.hero-amazone {
+    object-position: 75% 18%;
+}
+
+/* Le voile sombre rend le texte lisible sur toutes les photos.
+   Il laisse passer les clics vers les flèches du carrousel. */
+.hero-overlay {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 5.5rem;
-    height: 2px;
-    background-color: var(--gold);
+    z-index: 2;     /* au-dessus de la photo active du carrousel */
+    inset: 0;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(46, 28, 9, 0.82) 0%, rgba(46, 28, 9, 0.5) 50%, rgba(46, 28, 9, 0.12) 100%);
+    pointer-events: none;
 }
 
 .hero-text {
-    position: relative;
-    z-index: 2;
-    padding-bottom: 7rem;
+    max-width: 760px;
+    color: #fff;
+    padding: 0 2.5rem;
+}
+
+.hero-text a {
+    pointer-events: auto;
 }
 
 .hero-tag {
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--gold-ink);
-    font-size: 0.78rem;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    padding: 0.25rem 1rem;
+    font-size: 0.8rem;
     font-weight: 700;
+    color: #fff;
+}
+
+.hero-tag i {
+    color: var(--gold-light);
 }
 
 .hero h1 {
-    font-size: clamp(3.6rem, 10.5vw, 8.5rem);
-    line-height: 0.92;
-    margin-bottom: 0.4rem;
+    color: #fff;
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    line-height: 1.05;
     font-weight: 700;
-}
-
-.hero h1 span {
-    display: block;
-    font-family: var(--sans);
-    font-size: 0.2em;
-    font-weight: 400;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--gold-ink);
-    margin-top: 0.8em;
+    margin-bottom: 0.6rem;
 }
 
 .hero-slogan {
     font-family: var(--serif);
     font-style: italic;
-    font-size: clamp(1.2rem, 2.2vw, 1.6rem);
-    margin: 1.4rem 0 2rem;
-    max-width: 480px;
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+    color: var(--gold-light);
+    margin-bottom: 0.6rem;
 }
 
-/* Fenêtre en arche contenant le carrousel */
-.arch-carousel {
+.hero-sub {
+    margin-bottom: 1.6rem;
+}
+
+/* Les flèches passent au-dessus du voile */
+.hero-carousel .carousel-control-prev,
+.hero-carousel .carousel-control-next {
+    z-index: 3;
+    width: 3rem;
+}
+
+/* ========== 5. BANNIÈRES DES PAGES INTERNES ========== */
+.page-banner {
     position: relative;
-    z-index: 2;
-    height: min(78vh, 680px);
-    min-height: 420px;
-    border-radius: 999px 999px 0 0;
+    display: flex;
+    align-items: center;
+    min-height: 340px;
     overflow: hidden;
-    border: 2px solid var(--brown);
-    outline: 2px solid var(--gold);
-    outline-offset: 8px;
-    margin-top: 10px;
+    background-color: var(--brown-dark);
 }
 
-.arch-carousel .carousel-inner,
-.arch-carousel .carousel-item {
-    height: 100%;
-}
-
-.arch-carousel .carousel-item img {
+.page-banner-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
     height: 100%;
     object-fit: cover;
+    opacity: 0.42;
 }
 
-.arch-carousel .carousel-control-prev,
-.arch-carousel .carousel-control-next {
-    top: auto;
-    bottom: 1.2rem;
-    width: 44px;
-    height: 44px;
-    background-color: var(--brown);
-    opacity: 1;
-    transition: var(--transition);
-}
-
-.arch-carousel .carousel-control-prev {
-    left: calc(50% - 50px);
-}
-
-.arch-carousel .carousel-control-next {
-    right: calc(50% - 50px);
-}
-
-.arch-carousel .carousel-control-prev:hover,
-.arch-carousel .carousel-control-next:hover {
-    background-color: var(--gold);
-}
-
-/* ========== 5. EN-TÊTES DES PAGES INTERNES ========== */
-.page-head {
+.page-banner-text {
     position: relative;
-    padding: 3.5rem 0 0;
-    overflow: hidden;
+    text-align: center;
+    color: #fff;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
 
-.page-head::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 3rem;
-    height: 2px;
-    background-color: var(--gold);
-}
-
-.page-head h1 {
-    font-size: clamp(3rem, 8vw, 6.2rem);
-    line-height: 1;
+.page-banner h1 {
+    color: #fff;
+    font-size: clamp(2.4rem, 6vw, 3.8rem);
+    line-height: 1.1;
     font-weight: 700;
 }
 
-.page-head .lead-text {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 1.3rem;
-    max-width: 460px;
+.page-banner .overline {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #fff;
 }
 
-.page-head-text {
-    padding-bottom: 5rem;
-}
-
-/* Petite arche d'illustration à droite du titre */
-.arch-img {
-    position: relative;
-    z-index: 2;
-    display: block;
-    width: 100%;
-    max-width: 340px;
-    height: 380px;
-    margin-left: auto;
-    object-fit: cover;
-    border-radius: 999px 999px 0 0;
-    border: 2px solid var(--brown);
+.page-banner .lead-text {
+    font-size: 1.15rem;
+    margin: 0 auto;
+    max-width: 560px;
 }
 
 /* ========== 6. SECTIONS COMMUNES ========== */
 .section {
-    padding: 6rem 0;
+    padding: 5rem 0;
 }
 
+/* Section sur fond crème, en alternance avec le blanc */
+.section-tint,
 .bg-white {
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
+    background-color: var(--cream) !important;
 }
 
+/* Titres de section centrés */
 .section-title {
-    margin-bottom: 3.5rem;
-    max-width: 640px;
+    margin: 0 auto 3rem;
+    max-width: 680px;
+    text-align: center;
 }
 
 .section-title h2,
 .sticky-title h2 {
-    font-size: clamp(2rem, 4.4vw, 3.2rem);
-    line-height: 1.1;
+    font-size: clamp(1.9rem, 3.8vw, 2.7rem);
+    line-height: 1.15;
 }
 
 /* Titre qui reste visible pendant le défilement de la colonne voisine */
@@ -392,13 +369,24 @@ main .container,
     top: 110px;
 }
 
+/* Petite étiquette arrondie au-dessus des titres */
 .overline {
+    display: inline-block;
+    background-color: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.2rem 1rem;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
-    font-size: 0.74rem;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
     font-weight: 700;
     color: var(--gold-ink);
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.8rem;
+}
+
+.section-tint .overline,
+.bg-white .overline {
+    background-color: #fff;
 }
 
 .check-list {
@@ -415,16 +403,40 @@ main .container,
     margin-right: 0.5rem;
 }
 
-/* Bandeau d'appel à l'action : grand texte sur fond or */
+/* Bandeau sombre qui introduit une liste de biens */
+.band {
+    background: var(--gradient-brown);
+    padding: 4rem 0 3.2rem;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.band .section-title {
+    margin-bottom: 0;
+}
+
+.band h2 {
+    color: #fff;
+}
+
+.band p:last-child {
+    margin-bottom: 0;
+}
+
+.band .overline {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    color: var(--gold-light);
+}
+
+/* Bandeau d'appel à l'action */
 .cta {
     background: var(--gradient-gold);
-    border-top: 2px solid var(--brown);
-    padding: 5rem 0;
+    padding: 3.5rem 0;
 }
 
 .cta h2 {
-    font-size: clamp(2.2rem, 5.4vw, 4rem);
-    line-height: 1.05;
+    font-size: clamp(1.8rem, 3.6vw, 2.5rem);
+    line-height: 1.15;
 }
 
 .cta p {
@@ -433,29 +445,95 @@ main .container,
     font-weight: 500;
 }
 
-.cta .btn-brown:hover {
-    color: var(--brown);
+/* ========== 7. PAGE D'ACCUEIL ========== */
+/* Cartes « Quel est votre projet ? » */
+.profile-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    text-align: center;
+    transition: var(--transition);
 }
 
-/* ========== 7. PAGE D'ACCUEIL ========== */
-/* Chiffres clés présentés comme un registre */
+.profile-card .card-body {
+    padding: 2rem 1.6rem;
+}
+
+.profile-card .card-body > i {
+    display: block;
+    font-size: 2.2rem;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+    transition: var(--transition);
+}
+
+.profile-card .card-title {
+    font-size: 1.3rem;
+}
+
+.profile-card a {
+    color: var(--gold-ink);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.profile-card:hover {
+    border-color: var(--gold);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-6px);
+}
+
+.profile-card:hover .card-body > i {
+    transform: scale(1.15);
+}
+
+/* Engagements de l'agence */
+.why-item {
+    text-align: center;
+    padding: 0 0.6rem;
+}
+
+.why-item i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: var(--cream);
+    color: var(--gold-ink);
+    font-size: 1.5rem;
+    margin-bottom: 0.9rem;
+    transition: var(--transition);
+}
+
+.why-item:hover i {
+    background-color: var(--brown);
+    color: var(--gold-light);
+}
+
+.why-item h3 {
+    font-size: 1.2rem;
+}
+
+.why-item p {
+    margin-bottom: 0;
+}
+
+/* Chiffres clés */
 .stats {
     background-color: var(--brown);
+    text-align: center;
 }
 
 .stats .row > div {
     padding-top: 2.2rem;
     padding-bottom: 2.2rem;
-    border-right: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.stats .row > div:last-child {
-    border-right: none;
 }
 
 .stat-number {
     font-family: var(--serif);
-    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    font-size: clamp(2.2rem, 4.5vw, 3rem);
     font-weight: 700;
     line-height: 1.1;
     color: var(--gold-light);
@@ -465,131 +543,32 @@ main .container,
 .stat-label {
     margin-bottom: 0;
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.85);
 }
 
-/* Index des services : une ligne par service */
-.service-index {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    border-top: 2px solid var(--brown);
-}
-
-.service-index li {
-    display: grid;
-    grid-template-columns: 3.5rem 1fr 2rem;
-    gap: 1rem;
-    align-items: start;
-    padding: 1.6rem 0.8rem;
-    border-bottom: 1px solid var(--line);
-    transition: var(--transition);
-}
-
-.service-index .index-num {
-    font-family: var(--serif);
-    font-size: 1.5rem;
-    color: var(--gold-ink);
-    transition: var(--transition);
-}
-
-.service-index h3 {
-    font-size: 1.6rem;
-    margin-bottom: 0.2rem;
-    transition: var(--transition);
-}
-
-.service-index p {
-    margin-bottom: 0;
-}
-
-.service-index i {
-    font-size: 1.4rem;
-    color: var(--gold);
-    transition: var(--transition);
-}
-
-/* Toute la ligne passe en brun au survol */
-.service-index li:hover {
-    background-color: var(--brown);
-    color: #fff;
-}
-
-.service-index li:hover h3,
-.service-index li:hover .index-num,
-.service-index li:hover i {
-    color: var(--gold-light);
-}
-
-.service-index li:hover i {
-    transform: rotate(-12deg) scale(1.15);
-}
-
-/* Mosaïque des biens à la une : une grande carte et deux petites */
-.mosaic {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 1.5rem;
-}
-
-.mosaic .mosaic-big {
-    grid-row: span 2;
-}
-
-/* La photo de la grande carte remplit toute la hauteur disponible */
-.mosaic .mosaic-big .property-img {
-    flex: 1;
-    min-height: 420px;
-}
-
-.mosaic .mosaic-big .property-img img {
-    position: absolute;
-    inset: 0;
-    height: 100%;
-}
-
-/* Le texte garde sa hauteur : c'est la photo qui occupe le reste */
-.mosaic .mosaic-big .card-body {
-    flex: 0 0 auto;
-}
-
-.mosaic .card-title {
-    font-size: 1.25rem;
-}
-
-.mosaic .mosaic-big .card-title {
-    font-size: 1.8rem;
-}
-
-/* Avis clients : colonnes décalées sur fond sombre */
-.reviews {
-    background: var(--gradient-brown);
-}
-
-.reviews .section-title h2,
-.reviews .overline {
-    color: var(--gold-light);
-}
-
+/* Avis clients */
 .testimonial {
     margin: 0;
-    padding-top: 1.2rem;
-    border-top: 2px solid var(--gold-light);
-    color: #fff;
+    height: 100%;
+    padding: 1.8rem;
+    background-color: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
     transition: var(--transition);
 }
 
 .testimonial p {
     font-family: var(--serif);
     font-style: italic;
-    font-size: 1.15rem;
-    line-height: 1.5;
+    font-size: 1.05rem;
+    line-height: 1.55;
 }
 
 .testimonial footer {
-    color: var(--gold-light);
+    color: var(--gold-ink);
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .testimonial:hover {
@@ -598,18 +577,18 @@ main .container,
 
 /* ========== 8. CARTES DE BIENS ET CATALOGUE ========== */
 .property-card {
-    border: 1px solid var(--line);
-    border-radius: 0;
+    border: none;
+    border-radius: var(--radius);
     background-color: #fff;
     overflow: hidden;
     height: 100%;
+    box-shadow: var(--shadow);
     transition: var(--transition);
 }
 
 .property-card:hover {
-    border-color: var(--brown);
-    box-shadow: 8px 8px 0 var(--gold-light);
-    transform: translate(-4px, -4px);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-6px);
 }
 
 .property-img {
@@ -620,10 +599,26 @@ main .container,
 .property-img img {
     display: block;
     width: 100%;
-    height: 210px;
+    height: 220px;
     object-fit: cover;
-    border-radius: 0;
     transition: transform 0.6s ease;
+}
+
+/* Dégradé sombre sous le prix affiché sur la photo */
+.property-img::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 45%;
+    background: linear-gradient(0deg, rgba(46, 28, 9, 0.8) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+/* Cadrage bas pour garder la piscine dans le champ */
+.property-img img[src$="villa-piscine-ghana.jpg"] {
+    object-position: center 90%;
 }
 
 /* Zoom de la photo au survol */
@@ -631,26 +626,25 @@ main .container,
     transform: scale(1.06);
 }
 
+/* Étiquette « À vendre » ou « À louer » en haut à droite */
 .badge-type {
     position: absolute;
-    top: 0;
-    left: 0;
+    z-index: 1;
+    top: 0.8rem;
+    right: 0.8rem;
     background-color: var(--gold-light);
     color: var(--brown);
-    padding: 0.3rem 0.9rem;
-    font-size: 0.75rem;
+    border-radius: 6px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.72rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
 }
 
 .badge-rent {
     background-color: var(--brown);
     color: var(--gold-light);
-}
-
-.property-card .card-title {
-    font-size: 1.5rem;
 }
 
 .price {
@@ -661,102 +655,99 @@ main .container,
     margin-bottom: 0.2rem;
 }
 
+/* Prix posé en bas de la photo */
+.property-img .price {
+    position: absolute;
+    z-index: 1;
+    left: 1rem;
+    right: 1rem;
+    bottom: 0.6rem;
+    margin: 0;
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.property-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.property-card .card-title {
+    font-size: 1.1rem;
+    line-height: 1.35;
+}
+
 .location {
     color: #75634d;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
 }
 
 .property-meta {
     list-style: none;
-    padding: 0.8rem 0 0;
-    margin: 0;
+    padding: 0.7rem 0 0;
+    margin: auto 0 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem 1.2rem;
+    gap: 0.3rem 1rem;
     border-top: 1px solid var(--line);
-    font-size: 0.85rem;
+    font-size: 0.82rem;
 }
 
 .property-meta i {
     color: var(--gold);
 }
 
-/* Bouton « Voir le détail » : toute la carte devient cliquable (stretched-link) */
+/* Bouton « Détails » : toute la carte devient cliquable (stretched-link) */
 .btn-details {
-    background: none;
+    align-self: flex-end;
+    background-color: var(--brown);
     border: none;
-    padding: 0.9rem 0 0;
-    color: var(--brown);
+    border-radius: 6px;
+    margin-top: 0.9rem;
+    padding: 0.35rem 1rem;
+    color: #fff;
     font-weight: 700;
-    font-size: 0.9rem;
-}
-
-.btn-details i {
-    display: inline-block;
+    font-size: 0.85rem;
     transition: var(--transition);
 }
 
-.property-card:hover .btn-details i {
-    transform: translateX(6px);
+.property-card:hover .btn-details {
+    background-color: var(--gold);
 }
 
 .btn-details:focus-visible {
     outline: 2px solid var(--gold);
-    outline-offset: 4px;
+    outline-offset: 3px;
 }
 
-/* Onglets de filtre (page « Nos biens ») */
+/* Boutons de filtre (page « Nos biens ») */
 .filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.8rem;
-    border-bottom: 2px solid var(--brown);
-    margin-bottom: 3rem;
+    justify-content: center;
+    gap: 0.7rem;
+    margin-bottom: 2.5rem;
 }
 
 .btn-filter {
-    border: none;
-    border-bottom: 4px solid transparent;
-    border-radius: 0;
-    margin-bottom: -2px;
-    padding: 0.4rem 0 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.35rem 1.4rem;
     color: var(--brown);
-    font-family: var(--serif);
-    font-size: 1.25rem;
+    font-weight: 600;
     transition: var(--transition);
 }
 
 .btn-filter:hover,
 .btn-filter.active {
-    border-bottom-color: var(--gold);
-    color: var(--brown);
+    background-color: var(--brown);
+    border-color: var(--brown);
+    color: #fff;
 }
 
 /* Masquage lors du filtrage */
 .property-item.hide {
     display: none;
-}
-
-/* Catalogue : grandes fiches horizontales, photo à gauche ou à droite */
-.catalogue-photo {
-    height: 100%;
-}
-
-.catalogue-photo img {
-    height: 100%;
-    min-height: 300px;
-}
-
-.catalogue-body {
-    padding: 2.2rem;
-}
-
-.catalogue-body .price {
-    font-size: 1.7rem;
-}
-
-.catalogue-body .card-title {
-    font-size: 1.7rem;
 }
 
 /* ========== 9. FENÊTRE DE DÉTAIL D'UN BIEN ========== */
@@ -818,101 +809,82 @@ main .container,
 }
 
 /* ========== 10. PAGE SERVICES ========== */
-/* Cartes Bootstrap décalées, avec un grand numéro en filigrane */
 .service-card {
     border: 1px solid var(--line);
-    border-radius: 0;
+    border-radius: var(--radius);
     background-color: #fff;
-    position: relative;
-    overflow: hidden;
     transition: var(--transition);
 }
 
 .service-card .card-body {
-    position: relative;
-    padding: 2.2rem;
-}
-
-.service-card .watermark {
-    position: absolute;
-    top: 0.2rem;
-    right: 1.2rem;
-    font-family: var(--serif);
-    font-size: 5.5rem;
-    font-weight: 700;
-    line-height: 1;
-    color: var(--cream);
-    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.7rem;
 }
 
 .service-card .card-title {
-    position: relative;
-    font-size: 1.7rem;
-}
-
-.service-card .card-text {
-    position: relative;
+    font-size: 1.35rem;
 }
 
 .service-icon {
-    position: relative;
     font-size: 2rem;
     color: var(--gold);
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     transition: var(--transition);
 }
 
 .service-price {
-    position: relative;
     font-weight: 700;
     color: var(--brown);
-    margin-bottom: 0;
+    margin: auto 0 0;
     padding-top: 0.8rem;
     border-top: 1px solid var(--line);
+    font-size: 0.92rem;
 }
 
 .service-card:hover {
-    border-color: var(--brown);
-    box-shadow: 8px 8px 0 var(--gold-light);
-    transform: translate(-4px, -4px);
-}
-
-.service-card:hover .watermark {
-    color: var(--gold-light);
+    border-color: var(--gold);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-6px);
 }
 
 .service-card:hover .service-icon {
-    transform: translateY(-4px);
+    transform: scale(1.12);
 }
 
-/* Méthode : les étapes montent comme un soleil à l'horizon */
-.steps {
-    position: relative;
-}
-
+/* Étapes numérotées (méthode, parcours diaspora) */
 .step {
-    border-left: 2px solid var(--gold);
-    padding: 0 0 0 1.2rem;
-}
-
-.step span {
-    display: block;
-    font-family: var(--serif);
-    font-size: 3rem;
-    font-weight: 700;
-    line-height: 1;
-    color: var(--gold-ink);
-    margin-bottom: 0.6rem;
+    height: 100%;
+    background-color: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.6rem;
+    text-align: center;
     transition: var(--transition);
 }
 
-.step:hover span {
-    color: var(--brown);
-    transform: translateX(6px);
+.step span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--brown);
+    color: var(--gold-light);
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+}
+
+.step:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
 }
 
 .step h3 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 .step p {
@@ -966,20 +938,20 @@ main .container,
     transform: scale(1.02);
 }
 
-/* Valeurs : quatre colonnes séparées par des filets */
-.values {
-    border-top: 2px solid var(--brown);
+.about-img {
+    border-radius: var(--radius);
 }
 
+/* Valeurs : quatre cartes */
 .value {
-    padding: 1.8rem 1.4rem;
-    border-right: 1px solid var(--line);
     height: 100%;
+    margin: 0 0.5rem;
+    padding: 1.8rem 1.4rem;
+    background-color: #fff;
+    border-radius: var(--radius);
+    text-align: center;
+    box-shadow: var(--shadow);
     transition: var(--transition);
-}
-
-.values > div:last-child .value {
-    border-right: none;
 }
 
 .value i {
@@ -991,7 +963,7 @@ main .container,
 }
 
 .value h3 {
-    font-size: 1.4rem;
+    font-size: 1.25rem;
 }
 
 .value p {
@@ -999,32 +971,38 @@ main .container,
 }
 
 .value:hover {
-    background-color: #fff;
+    transform: translateY(-6px);
 }
 
-.value:hover i {
-    transform: scale(1.2) rotate(-8deg);
-}
-
-/* Équipe : chaque membre a sa petite arche */
+/* Équipe : cercle avec les initiales du membre */
 .team-card {
+    text-align: center;
+    padding: 1.8rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    height: 100%;
     transition: var(--transition);
 }
 
-/* Arche avec les initiales du membre */
 .team-avatar {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 220px;
-    border-radius: 999px 999px 0 0;
-    margin-bottom: 1rem;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
     background: var(--gradient-brown);
     color: var(--gold-light);
     font-family: var(--serif);
-    font-size: 3.4rem;
+    font-size: 2.1rem;
     font-weight: 600;
     transition: var(--transition);
+}
+
+.team-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-6px);
 }
 
 .team-card:hover .team-avatar {
@@ -1033,7 +1011,7 @@ main .container,
 }
 
 .team-card h3 {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     margin-bottom: 0.1rem;
 }
 
@@ -1045,35 +1023,22 @@ main .container,
 }
 
 /* ========== 12. PAGE CONTACT ========== */
-/* Écran coupé en deux : coordonnées à gauche, lettre à droite */
-.contact-split {
-    min-height: calc(100vh - 68px);
-}
-
 .contact-info {
     height: 100%;
     background: var(--gradient-brown);
     color: #fff;
-    padding: 3.5rem 2.5rem;
-}
-
-.contact-info h1 {
-    color: #fff;
-    font-size: clamp(2.6rem, 5vw, 3.3rem);
-    line-height: 1;
-    font-weight: 700;
-}
-
-.contact-info .lead-text {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 1.2rem;
-    margin-bottom: 2.5rem;
+    border-radius: var(--radius);
+    padding: 2.2rem;
 }
 
 .info-item {
     padding: 1rem 0;
     border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.info-item:first-child {
+    border-top: none;
+    padding-top: 0;
 }
 
 .info-item h2 {
@@ -1093,11 +1058,11 @@ main .container,
 .info-item p,
 .info-item address {
     margin-bottom: 0;
-    color: rgba(255, 255, 255, 0.88);
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .info-item a {
-    color: rgba(255, 255, 255, 0.88);
+    color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
     transition: var(--transition);
 }
@@ -1107,37 +1072,35 @@ main .container,
 }
 
 .contact-form-box {
-    padding: 3.5rem 3rem;
-    max-width: 680px;
+    height: 100%;
+    background-color: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2.2rem;
 }
 
 .contact-form-box h2 {
-    font-size: clamp(1.8rem, 3.6vw, 2.5rem);
-    margin-bottom: 2rem;
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    margin-bottom: 1.5rem;
 }
 
 .contact-form-box .form-label {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: var(--brown);
-    margin-bottom: 0;
 }
 
-/* Champs à la manière d'une lettre : une simple ligne à remplir */
 .contact-form-box .form-control,
 .contact-form-box .form-select {
-    background-color: transparent;
-    border: none;
-    border-bottom: 2px solid var(--line);
-    border-radius: 0;
-    padding-left: 0;
+    border-color: var(--line);
+    border-radius: 8px;
 }
 
 .contact-form-box .form-control:focus,
 .contact-form-box .form-select:focus {
-    border-bottom-color: var(--gold);
-    background-color: transparent;
-    box-shadow: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 0.2rem rgba(168, 122, 38, 0.2);
 }
 
 /* Champ piège anti-robots : placé hors de l'écran */
@@ -1152,24 +1115,8 @@ main .container,
 /* ========== 13. PIED DE PAGE ========== */
 .site-footer {
     background-color: var(--brown-dark);
-    color: rgba(255, 255, 255, 0.75);
-    padding: 4rem 0 1.5rem;
-    overflow: hidden;
-}
-
-/* Le nom de l'agence en très grand */
-.footer-word {
-    font-family: var(--serif);
-    font-size: clamp(4rem, 15vw, 12rem);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.03em;
-    margin-bottom: 2.5rem;
-    border-bottom: 2px solid var(--gold);
-    background: var(--gradient-gold);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    color: rgba(255, 255, 255, 0.78);
+    padding: 3.5rem 0 1.5rem;
 }
 
 .footer-title {
@@ -1189,7 +1136,7 @@ main .container,
 
 .footer-links a,
 .site-footer address {
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.78);
     text-decoration: none;
     transition: var(--transition);
 }
@@ -1201,11 +1148,12 @@ main .container,
 
 .socials a {
     display: inline-flex;
-    width: 40px;
-    height: 40px;
+    width: 38px;
+    height: 38px;
     align-items: center;
     justify-content: center;
     border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
     color: #fff;
     margin-right: 0.4rem;
     transition: var(--transition);
@@ -1220,7 +1168,7 @@ main .container,
 
 .copyright {
     border-top: 1px solid rgba(255, 255, 255, 0.12);
-    margin-top: 2.5rem;
+    margin-top: 2rem;
     padding-top: 1.5rem;
     font-size: 0.85rem;
     margin-bottom: 0;
@@ -1426,156 +1374,26 @@ main .container,
 }
 
 /* ========== 16. RESPONSIVE (MEDIA QUERIES) ========== */
-/* Grands écrans : la barre devient un rail vertical fixé à gauche */
-@media (min-width: 1200px) {
-    body {
-        padding-top: 0;
-        padding-left: var(--rail);
-    }
-
-    #mainNav {
-        right: auto;
-        bottom: 0;
-        width: var(--rail);
-        padding: 2rem 1.6rem;
-        align-items: stretch;
-    }
-
-    #mainNav .container-fluid {
-        flex-direction: column;
-        flex-wrap: nowrap;
-        align-items: stretch;
-        height: 100%;
-        padding: 0;
-    }
-
-    #mainNav .navbar-collapse {
-        flex-grow: 0;
-        flex-direction: column;
-        align-items: stretch;
-        margin-top: 2.5rem;
-    }
-
-    #mainNav .navbar-nav {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .navbar-brand {
-        margin-right: 0;
-    }
-
-    .rail-coords {
-        display: block;
-        margin-top: auto;
-    }
-
-    .contact-split {
-        min-height: 100vh;
-    }
-}
-
-/* Colonnes décalées : uniquement quand elles sont côte à côte */
-@media (min-width: 992px) {
-    /* Cartes de services en quinconce */
-    .service-grid > div:nth-child(even) {
-        margin-top: 3rem;
-    }
-
-    /* Les étapes de la méthode montent de gauche à droite */
-    .steps > div:nth-child(1) { margin-top: 6rem; }
-    .steps > div:nth-child(2) { margin-top: 4rem; }
-    .steps > div:nth-child(3) { margin-top: 2rem; }
-
-    /* Avis et équipe en escalier */
-    .stagger > div:nth-child(3n + 2) {
-        margin-top: 2.5rem;
-    }
-
-    .stagger > div:nth-child(3n) {
-        margin-top: 5rem;
-    }
-
-    /* Le panneau de contact occupe toute la hauteur de l'écran */
-    .contact-split {
-        display: flex;
-    }
-
-    .contact-split > .row {
-        flex: 1;
-        min-width: 0;
-    }
-
-    /* La colonne de contact reste visible pendant la saisie */
-    .contact-info-inner {
-        position: sticky;
-        top: 3.5rem;
-    }
-}
-
-/* Tablettes et mobiles */
+/* Tablettes et mobiles : menu hamburger et voile plus uniforme */
 @media (max-width: 991.98px) {
-    .hero-text {
-        padding-bottom: 2.5rem;
-    }
-
-    .hero::after {
-        bottom: 2.5rem;
-    }
-
-    .arch-carousel {
-        max-width: 480px;
-        height: 480px;
-        margin: 10px auto 0;
-    }
-
     .sticky-title {
         position: static;
     }
 
-    .page-head-text {
-        padding-bottom: 2rem;
-    }
-
-    .arch-img {
-        max-width: 240px;
-        height: 260px;
-        margin: 0 auto;
-    }
-
-    .mosaic {
-        grid-template-columns: 1fr;
-    }
-
-    .mosaic .mosaic-big {
-        grid-row: auto;
-    }
-
-    .mosaic .mosaic-big .property-img {
-        flex: none;
-        min-height: 260px;
-    }
-
-    .value {
-        border-right: none;
-        border-bottom: 1px solid var(--line);
-    }
-
-    .step {
-        margin-bottom: 0.5rem;
-    }
-
-    .contact-form-box {
-        padding: 2.5rem 1.5rem;
-        max-width: none;
-    }
-
-    .contact-info {
-        padding: 2.5rem 1.5rem;
-    }
-
     .navbar-collapse {
-        padding: 1rem 0 0.5rem;
+        padding-top: 0.8rem;
+    }
+
+    .navbar-light .navbar-nav .nav-link {
+        text-align: center;
+    }
+
+    .navbar-light .navbar-nav .btn-nav {
+        margin: 0.5rem 0 0;
+    }
+
+    .hero-overlay {
+        background: rgba(46, 28, 9, 0.62);
     }
 }
 
@@ -1585,37 +1403,37 @@ main .container,
         padding: 3.5rem 0;
     }
 
-    .arch-carousel {
-        height: 400px;
-        min-height: 0;
+    .topbar a.ms-3 {
+        display: block;
+        margin-left: 0 !important;
     }
 
-    .stats .row > div:nth-child(2) {
-        border-right: none;
+    .hero-carousel,
+    .hero-carousel .carousel-inner,
+    .hero-carousel .carousel-item {
+        height: 600px;
     }
 
-    .stats .row > div {
-        padding-top: 1.4rem;
-        padding-bottom: 1.4rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    .hero-text {
+        padding: 0 1.4rem;
     }
 
-    .service-index li {
-        grid-template-columns: 2.4rem 1fr;
-    }
-
-    .service-index i {
+    .hero-carousel .carousel-control-prev,
+    .hero-carousel .carousel-control-next {
         display: none;
     }
 
-    .catalogue-body,
-    .service-card .card-body {
-        padding: 1.5rem;
+    .page-banner {
+        min-height: 260px;
     }
 
-    .catalogue-photo img {
-        height: 240px;
-        min-height: 0;
+    .value {
+        margin: 0;
+    }
+
+    .contact-info,
+    .contact-form-box {
+        padding: 1.5rem;
     }
 
     .bien-gallery img {

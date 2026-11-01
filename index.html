@@ -19,11 +19,26 @@
 </head>
 <body>
 
-    <!-- ===================== RAIL DE NAVIGATION =====================
-         Barre en haut sur mobile, rail vertical à gauche sur grand écran -->
-    <header>
-        <nav class="navbar navbar-expand-xl navbar-dark" id="mainNav">
-            <div class="container-fluid">
+    <!-- ===================== BANDEAU DE COORDONNÉES ===================== -->
+    <div class="topbar">
+        <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2">
+            <p class="mb-0">
+                <a href="tel:+2290100112233"><i class="bi bi-telephone"></i> +229 01 00 11 22 33</a>
+                <a href="mailto:contact@horizon-immo.bj" class="ms-3"><i class="bi bi-envelope"></i> contact@horizon-immo.bj</a>
+            </p>
+            <p class="mb-0 topbar-socials">
+                <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ===================== BARRE DE NAVIGATION =====================
+         Reste collée en haut de l'écran ; menu hamburger sous 992 px -->
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+            <div class="container">
                 <a class="navbar-brand" href="index.html">
                     <i class="bi bi-sunrise-fill"></i> Horizon<span>Immobilier</span>
                 </a>
@@ -33,59 +48,265 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="menu">
-                    <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html"><span class="nav-num">01</span> Accueil</a></li>
-                        <li class="nav-item"><a class="nav-link" href="a-propos.html"><span class="nav-num">02</span> À propos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="services.html"><span class="nav-num">03</span> Services</a></li>
-                        <li class="nav-item"><a class="nav-link" href="biens.html"><span class="nav-num">04</span> Nos biens</a></li>
+                    <ul class="navbar-nav ms-auto align-items-lg-center">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Accueil</a></li>
+                        <li class="nav-item"><a class="nav-link" href="a-propos.html">À propos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="biens.html">Nos biens</a></li>
                         <li class="nav-item"><a class="nav-link btn-nav" href="contact.html">Contact</a></li>
                     </ul>
                 </div>
-                <!-- Coordonnées géographiques de Cotonou -->
-                <p class="rail-coords">6°22′N 2°26′E<br>Cotonou, Bénin</p>
             </div>
         </nav>
     </header>
 
     <main>
-        <!-- ===================== HERO : TITRE + CARROUSEL EN ARCHE ===================== -->
+        <!-- ===================== HERO : CARROUSEL PLEINE LARGEUR ===================== -->
         <section class="hero">
-            <div class="container">
-                <div class="row align-items-end g-4">
-                    <div class="col-lg-7 hero-text">
-                        <p class="hero-tag">Agence immobilière à Cotonou depuis 2012</p>
-                        <h1>Horizon <span>Immobilier</span></h1>
+            <div id="heroCarousel" class="carousel slide carousel-fade hero-carousel" data-bs-ride="carousel" role="group" aria-label="Diaporama d'accueil">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="img/bj-amazone.jpg" class="d-block w-100 hero-amazone" alt="Statue de l'Amazone à Cotonou">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/cotonou.jpg" class="d-block w-100" alt="Vue aérienne de Cotonou">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/ganvie.jpg" class="d-block w-100" alt="Ganvié, la cité lacustre du lac Nokoué">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/bj-calavi.jpg" class="d-block w-100" alt="Vue d'Abomey-Calavi">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Précédent</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Suivant</span>
+                </button>
+            </div>
+            <!-- Texte posé sur le carrousel -->
+            <div class="hero-overlay">
+                <div class="container">
+                    <div class="hero-text">
+                        <p class="hero-tag"><i class="bi bi-sunrise-fill"></i> Agence immobilière à Cotonou depuis 2012</p>
+                        <h1>Horizon Immobilier</h1>
                         <p class="hero-slogan">Votre avenir commence à l'horizon.</p>
-                        <div class="d-flex flex-wrap align-items-center gap-4">
+                        <p class="hero-sub">Achat, vente, location et gestion de biens à Cotonou, Abomey-Calavi et dans tout le Bénin.</p>
+                        <div class="d-flex flex-wrap gap-3">
                             <a href="biens.html" class="btn btn-main btn-lg">Voir nos biens</a>
-                            <a href="contact.html" class="btn-line">Estimer mon bien</a>
+                            <a href="services.html" class="btn btn-ghost btn-lg">Nos services</a>
+                            <a href="contact.html" class="btn btn-ghost btn-lg">Estimer mon bien</a>
                         </div>
                     </div>
-                    <div class="col-lg-5">
-                        <div id="heroCarousel" class="carousel slide carousel-fade arch-carousel" data-bs-ride="carousel" role="group" aria-label="Diaporama d'accueil">
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="img/ouidah.jpg" class="d-block w-100" alt="Ouidah vue du ciel">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="img/hero1.jpg" class="d-block w-100" alt="Villa moderne avec piscine">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="img/ganvie.jpg" class="d-block w-100" alt="Ganvié, la cité lacustre du lac Nokoué">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="img/bj-calavi.jpg" class="d-block w-100" alt="Vue d'Abomey-Calavi">
-                                </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ===================== RÉSUMÉ DES SERVICES : UNE ENTRÉE PAR PROJET ===================== -->
+        <section class="section">
+            <div class="container">
+                <div class="section-title reveal">
+                    <p class="overline">Comment vous aider ?</p>
+                    <h2>Quel est votre projet ?</h2>
+                    <p>De la première visite à la remise des clés, nos conseillers sont à vos côtés.</p>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-4 reveal">
+                        <article class="card profile-card h-100">
+                            <div class="card-body">
+                                <i class="bi bi-key"></i>
+                                <h3 class="card-title">Acheter un bien</h3>
+                                <p class="card-text">Maison, appartement ou parcelle : nous trouvons le bien adapté à votre budget.</p>
+                                <a href="biens.html" class="stretched-link">Voir les biens <i class="bi bi-arrow-right"></i></a>
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Précédent</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Suivant</span>
-                            </button>
-                        </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4 reveal">
+                        <article class="card profile-card h-100">
+                            <div class="card-body">
+                                <i class="bi bi-building"></i>
+                                <h3 class="card-title">Louer un logement</h3>
+                                <p class="card-text">Appartements et villas, meublés ou non, à Cotonou et Abomey-Calavi.</p>
+                                <a href="biens.html" class="stretched-link">Voir les locations <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4 reveal">
+                        <article class="card profile-card h-100">
+                            <div class="card-body">
+                                <i class="bi bi-cash-coin"></i>
+                                <h3 class="card-title">Vendre mon bien</h3>
+                                <p class="card-text">Estimation gratuite, vérification des documents et vente au juste prix.</p>
+                                <a href="contact.html" class="stretched-link">Demander une estimation <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4 reveal">
+                        <article class="card profile-card h-100">
+                            <div class="card-body">
+                                <i class="bi bi-clipboard-check"></i>
+                                <h3 class="card-title">Faire gérer mon bien</h3>
+                                <p class="card-text">Encaissement des loyers, entretien et relation avec les locataires.</p>
+                                <a href="services.html" class="stretched-link">Découvrir la gestion <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4 reveal">
+                        <article class="card profile-card h-100">
+                            <div class="card-body">
+                                <i class="bi bi-file-earmark-check"></i>
+                                <h3 class="card-title">Vérifier un terrain</h3>
+                                <p class="card-text">Nous contrôlons le titre foncier ou la convention de vente avant votre achat.</p>
+                                <a href="services.html" class="stretched-link">Sécuriser mon achat <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-4 reveal">
+                        <article class="card profile-card h-100">
+                            <div class="card-body">
+                                <i class="bi bi-globe-americas"></i>
+                                <h3 class="card-title">Investir depuis l'étranger</h3>
+                                <p class="card-text">Visites vidéo, procuration chez le notaire et gestion à distance.</p>
+                                <a href="services.html" class="stretched-link">Service diaspora <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== BIENS À LA UNE ===================== -->
+        <section class="band">
+            <div class="container section-title reveal">
+                <p class="overline">Sélection du moment</p>
+                <h2>Biens à la une</h2>
+                <p>Des biens vérifiés par notre équipe et disponibles dès maintenant.</p>
+            </div>
+        </section>
+        <section class="section section-tint">
+            <div class="container">
+                <h2 class="visually-hidden">Liste des biens à la une</h2>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3 reveal">
+                        <article class="card property-card">
+                            <div class="property-img">
+                                <img src="img/bien3.jpg" alt="Villa contemporaine avec piscine">
+                                <span class="badge-type">À vendre</span>
+                                <p class="price">350 000 000 FCFA</p>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Villa contemporaine avec piscine</h3>
+                                <p class="location"><i class="bi bi-geo-alt"></i> Haie Vive, Cotonou</p>
+                                <ul class="property-meta">
+                                <li><i class="bi bi-door-open"></i> 5 chambres</li>
+                                <li><i class="bi bi-arrows-fullscreen"></i> 600 m²</li>
+                                <li><i class="bi bi-water"></i> Piscine</li>
+                                </ul>
+                                <button type="button" class="btn-details stretched-link" data-bien="villa-haie-vive">Détails</button>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-3 reveal">
+                        <article class="card property-card">
+                            <div class="property-img">
+                                <img src="img/bien2.jpg" alt="Appartement lumineux">
+                                <span class="badge-type badge-rent">À louer</span>
+                                <p class="price">350 000 FCFA / mois</p>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Appartement 3 chambres</h3>
+                                <p class="location"><i class="bi bi-geo-alt"></i> Fidjrossè, Cotonou</p>
+                                <ul class="property-meta">
+                                <li><i class="bi bi-door-open"></i> 3 chambres</li>
+                                <li><i class="bi bi-arrows-fullscreen"></i> 140 m²</li>
+                                <li><i class="bi bi-p-circle"></i> Parking</li>
+                                </ul>
+                                <button type="button" class="btn-details stretched-link" data-bien="appart-fidjrosse">Détails</button>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-3 reveal">
+                        <article class="card property-card">
+                            <div class="property-img">
+                                <img src="img/bj-ouidah-cite.jpg" alt="Villas basses dans une cité résidentielle de Ouidah">
+                                <span class="badge-type">À vendre</span>
+                                <p class="price">85 000 000 FCFA</p>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Villa basse 4 chambres</h3>
+                                <p class="location"><i class="bi bi-geo-alt"></i> Cité résidentielle, Ouidah</p>
+                                <ul class="property-meta">
+                                <li><i class="bi bi-door-open"></i> 4 chambres</li>
+                                <li><i class="bi bi-arrows-fullscreen"></i> 400 m²</li>
+                                <li><i class="bi bi-file-earmark-check"></i> Titre foncier</li>
+                                </ul>
+                                <button type="button" class="btn-details stretched-link" data-bien="villa-togbin">Détails</button>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-3 reveal">
+                        <article class="card property-card">
+                            <div class="property-img">
+                                <img src="img/villa-piscine-ghana.jpg" alt="Villa à étage avec piscine, terrasse et jardin tropical">
+                                <span class="badge-type badge-rent">À louer</span>
+                                <p class="price">1 200 000 FCFA / mois</p>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="card-title">Villa duplex meublée vue mer</h3>
+                                <p class="location"><i class="bi bi-geo-alt"></i> Fidjrossè Plage, Cotonou</p>
+                                <ul class="property-meta">
+                                <li><i class="bi bi-door-open"></i> 6 chambres</li>
+                                <li><i class="bi bi-arrows-fullscreen"></i> 500 m²</li>
+                                <li><i class="bi bi-water"></i> Piscine</li>
+                                </ul>
+                                <button type="button" class="btn-details stretched-link" data-bien="duplex-fidjrosse-plage">Détails</button>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <p class="text-center mt-5 mb-0"><a href="biens.html" class="btn btn-brown">Voir tous les biens</a></p>
+            </div>
+        </section>
+
+        <!-- ===================== POURQUOI NOUS CHOISIR ===================== -->
+        <section class="section">
+            <div class="container">
+                <div class="section-title reveal">
+                    <p class="overline">Nos engagements</p>
+                    <h2>Pourquoi choisir Horizon ?</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3 reveal">
+                        <article class="why-item">
+                            <i class="bi bi-shield-check"></i>
+                            <h3>Achats sécurisés</h3>
+                            <p>Chaque titre foncier est contrôlé avant la signature chez le notaire.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-3 reveal">
+                        <article class="why-item">
+                            <i class="bi bi-chat-dots"></i>
+                            <h3>Réponse sous 24 h</h3>
+                            <p>Un conseiller vous répond rapidement, par téléphone ou WhatsApp.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-3 reveal">
+                        <article class="why-item">
+                            <i class="bi bi-geo-alt"></i>
+                            <h3>Présence locale</h3>
+                            <p>Une équipe installée à Cotonou, qui connaît chaque quartier.</p>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-lg-3 reveal">
+                        <article class="why-item">
+                            <i class="bi bi-airplane"></i>
+                            <h3>Service diaspora</h3>
+                            <p>Votre projet avance au pays, même si vous vivez à l'étranger.</p>
+                        </article>
                     </div>
                 </div>
             </div>
@@ -116,127 +337,26 @@
             </div>
         </section>
 
-        <!-- ===================== RÉSUMÉ DES SERVICES ===================== -->
-        <section class="section">
+        <!-- ===================== PARCOURS DIASPORA ===================== -->
+        <section class="section section-tint">
             <div class="container">
-                <div class="row g-5">
-                    <div class="col-lg-5">
-                        <div class="sticky-title reveal">
-                            <p class="overline">Ce que nous faisons</p>
-                            <h2>Un accompagnement complet</h2>
-                            <p>De la première visite à la remise des clés, nos conseillers sont à vos côtés.</p>
-                            <a href="services.html" class="btn-line">Découvrir tous nos services</a>
-                        </div>
-                    </div>
-                    <div class="col-lg-7 reveal">
-                        <ul class="service-index">
-                            <li>
-                                <span class="index-num">01</span>
-                                <div>
-                                    <h3>Achat</h3>
-                                    <p>Maison, appartement ou parcelle : nous trouvons le bien adapté à votre budget.</p>
-                                </div>
-                                <i class="bi bi-key"></i>
-                            </li>
-                            <li>
-                                <span class="index-num">02</span>
-                                <div>
-                                    <h3>Vente</h3>
-                                    <p>Estimation gratuite, vérification des documents et vente au juste prix.</p>
-                                </div>
-                                <i class="bi bi-cash-coin"></i>
-                            </li>
-                            <li>
-                                <span class="index-num">03</span>
-                                <div>
-                                    <h3>Location</h3>
-                                    <p>Appartements et villas, meublés ou non, à Cotonou et Abomey-Calavi.</p>
-                                </div>
-                                <i class="bi bi-building"></i>
-                            </li>
-                            <li>
-                                <span class="index-num">04</span>
-                                <div>
-                                    <h3>Gestion</h3>
-                                    <p>Nous gérons vos biens, même si vous vivez à l'étranger.</p>
-                                </div>
-                                <i class="bi bi-clipboard-check"></i>
-                            </li>
-                        </ul>
-                    </div>
+                <div class="section-title reveal">
+                    <p class="overline">Service diaspora</p>
+                    <h2>Investir au Bénin depuis l'étranger</h2>
                 </div>
-            </div>
-        </section>
-
-        <!-- ===================== BIENS À LA UNE ===================== -->
-        <section class="section bg-white">
-            <div class="container">
-                <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 section-title mw-100 reveal">
-                    <div>
-                        <p class="overline">Sélection du moment</p>
-                        <h2 class="mb-0">Biens à la une</h2>
+                <div class="row g-4">
+                    <div class="col-sm-6 col-lg-3 reveal">
+                        <div class="step"><span>1</span><h3>Visites vidéo</h3><p>Découvrez les biens à distance avec un conseiller.</p></div>
                     </div>
-                    <a href="biens.html" class="btn-line">Voir tous les biens</a>
-                </div>
-                <!-- Mosaïque en CSS Grid : une grande carte et deux petites -->
-                <div class="mosaic">
-                    <article class="card property-card reveal mosaic-big">
-                        <div class="property-img">
-                            <img src="img/bien3.jpg" alt="Villa contemporaine avec piscine">
-                            <span class="badge-type">À vendre</span>
-                        </div>
-                        <div class="card-body">
-                            <p class="price">350 000 000 FCFA</p>
-                            <h3 class="card-title">Villa contemporaine avec piscine</h3>
-                            <p class="location"><i class="bi bi-geo-alt"></i> Haie Vive, Cotonou</p>
-                            <ul class="property-meta">
-                                <li><i class="bi bi-door-open"></i> 5 chambres</li>
-                                <li><i class="bi bi-arrows-fullscreen"></i> 600 m²</li>
-                                <li><i class="bi bi-water"></i> Piscine</li>
-                            </ul>
-                            <button type="button" class="btn-details stretched-link" data-bien="villa-haie-vive">
-                                Voir le détail <i class="bi bi-arrow-right"></i>
-                            </button>
-                        </div>
-                    </article>
-                    <article class="card property-card reveal">
-                        <div class="property-img">
-                            <img src="img/bien2.jpg" alt="Appartement lumineux">
-                            <span class="badge-type badge-rent">À louer</span>
-                        </div>
-                        <div class="card-body">
-                            <p class="price">350 000 FCFA / mois</p>
-                            <h3 class="card-title">Appartement 3 chambres</h3>
-                            <p class="location"><i class="bi bi-geo-alt"></i> Fidjrossè, Cotonou</p>
-                            <ul class="property-meta">
-                                <li><i class="bi bi-door-open"></i> 3 chambres</li>
-                                <li><i class="bi bi-arrows-fullscreen"></i> 140 m²</li>
-                                <li><i class="bi bi-p-circle"></i> Parking</li>
-                            </ul>
-                            <button type="button" class="btn-details stretched-link" data-bien="appart-fidjrosse">
-                                Voir le détail <i class="bi bi-arrow-right"></i>
-                            </button>
-                        </div>
-                    </article>
-                    <article class="card property-card reveal">
-                        <div class="property-img">
-                            <img src="img/bj-ouidah-cite.jpg" alt="Villas basses dans une cité résidentielle de Ouidah">
-                            <span class="badge-type">À vendre</span>
-                        </div>
-                        <div class="card-body">
-                            <p class="price">85 000 000 FCFA</p>
-                            <h3 class="card-title">Villa basse 4 chambres</h3>
-                            <p class="location"><i class="bi bi-geo-alt"></i> Cité résidentielle, Ouidah</p>
-                            <ul class="property-meta">
-                                <li><i class="bi bi-door-open"></i> 4 chambres</li>
-                                <li><i class="bi bi-arrows-fullscreen"></i> 400 m²</li>
-                                <li><i class="bi bi-file-earmark-check"></i> Titre foncier</li>
-                            </ul>
-                            <button type="button" class="btn-details stretched-link" data-bien="villa-togbin">
-                                Voir le détail <i class="bi bi-arrow-right"></i>
-                            </button>
-                        </div>
-                    </article>
+                    <div class="col-sm-6 col-lg-3 reveal">
+                        <div class="step"><span>2</span><h3>Vérifications</h3><p>Nous contrôlons les documents auprès de l'ANDF et de la mairie.</p></div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3 reveal">
+                        <div class="step"><span>3</span><h3>Signature</h3><p>Une procuration chez le notaire évite le déplacement.</p></div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3 reveal">
+                        <div class="step"><span>4</span><h3>Gestion</h3><p>Suivi de chantier, location et reversement des loyers.</p></div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -248,7 +368,7 @@
                     <p class="overline">Ils nous ont fait confiance</p>
                     <h2>Avis de nos clients</h2>
                 </div>
-                <div class="row g-4 stagger">
+                <div class="row g-4">
                     <div class="col-md-4 reveal">
                         <blockquote class="testimonial">
                             <p>« Nous avons trouvé notre villa à Abomey-Calavi en trois semaines. Une équipe à l'écoute et très réactive ! »</p>
@@ -341,7 +461,6 @@
     <!-- ===================== PIED DE PAGE ===================== -->
     <footer class="site-footer">
         <div class="container">
-            <p class="footer-word">Horizon</p>
             <div class="row g-4">
                 <div class="col-md-4">
                     <h2 class="footer-title">L'agence</h2>

@@ -386,7 +386,7 @@ const BIENS = {
         prix: "1 200 000 FCFA / mois",
         lieu: "Fidjrossè Plage, Cotonou",
         photos: [
-            { src: "img/bj-maison-cotonou.jpg", alt: "La villa et ses balcons" },
+            { src: "img/villa-piscine-ghana.jpg", alt: "La villa à étage, sa piscine et son jardin tropical" },
             { src: "img/bj-plage-fidjrosse.jpg", alt: "La plage de Fidjrossè, à deux minutes" },
             { src: "img/det-chambre2.jpg", alt: "Chambre meublée" },
             { src: "img/det-piscine.jpg", alt: "Terrasse et piscine" }
@@ -431,7 +431,6 @@ const BIENS = {
         lieu: "Cadjèhoun, Cotonou",
         photos: [
             { src: "img/hero3.jpg", alt: "Pièce de vie du studio" },
-            { src: "img/det-salon3.jpg", alt: "Coin salon" },
             { src: "img/det-sdb.jpg", alt: "Salle d'eau" }
         ],
         description: "Studio moderne et entièrement meublé, proche de l'aéroport et des commerces de Cadjèhoun. Parfait pour un étudiant, un jeune actif ou un séjour professionnel.",

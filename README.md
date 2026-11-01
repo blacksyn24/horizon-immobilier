@@ -28,7 +28,9 @@ Toutes les photos sont libres de droits.
 |---|---|---|---|
 | `bj-ouidah-cite.jpg` | Cité résidentielle à Ouidah | Ji-Elle (Wikimedia Commons) | CC BY-SA 4.0 |
 | `bj-ouidah-parcelle.jpg` | Parcelle et villas à Ouidah | Ji-Elle (Wikimedia Commons) | CC BY-SA 4.0 |
-| `bj-maison-cotonou.jpg` | Maison au bord d'une route à Cotonou | Fawaz.tairou (Wikimedia Commons) | CC BY-SA 4.0 |
+| `bj-amazone.jpg` | Statue de l'Amazone, Cotonou | Yemi festus (Wikimedia Commons) | CC BY-SA 4.0 |
+| `bj-avenue-steinmetz.jpg` | Avenue Steinmetz, Cotonou | Adoscam (Wikimedia Commons) | CC BY-SA 4.0 |
+| `villa-piscine-ghana.jpg` | Villa avec piscine, sud du Ghana (photo d'illustration) | Remy Mboku (Wikimedia Commons) | CC BY 2.0 |
 | `bj-plage-fidjrosse.jpg` | Plage de Fidjrossè, Cotonou | MyLady333 (Wikimedia Commons) | CC0 |
 | `bj-voie-fidjrosse.jpg` | Voie de Fidjrossè, Cotonou | Jean-Baptiste Amagbegnon (Wikimedia Commons) | CC BY-SA 4.0 |
 | `bj-calavi.jpg` | Vue d'Abomey-Calavi | Élisée.Adad (Wikimedia Commons) | CC BY-SA 4.0 |
