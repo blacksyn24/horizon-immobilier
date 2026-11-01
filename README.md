@@ -7,7 +7,7 @@ Projet hackathon XHTML & CSS : site de présentation de l'agence immobilière fi
 - `a-propos.html` : histoire, valeurs, équipe
 - `services.html` : services en cartes Bootstrap, méthode, FAQ
 - `biens.html` : biens à vendre / à louer avec filtre et fiche détaillée (galerie, caractéristiques, demande de visite)
-- `contact.html` : formulaire validé en JS, envoyé par e-mail via `api/contact.js` (Resend) + coordonnées
+- `contact.html` : formulaire validé en JS, envoyé par e-mail via `api/contact.js` (Resend) + coordonnées + carte Google Maps de l'école (Pigier Bénin)
 
 ## Technologies
 HTML5, CSS3 (`css/style.css`), Bootstrap 5, JavaScript (`js/script.js`), fonction serverless Vercel (`api/chat.js`) pour le chatbot Gemini.
